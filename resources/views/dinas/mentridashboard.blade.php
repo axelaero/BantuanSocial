@@ -3,7 +3,7 @@
 @section('content')
 <div class="flex justify-center">
         <div class="w-12/12 bg-white p-6 rounded-lg justify-center flex">
-        <form action="{{ route('ba_update') }}" method="post">
+        <form action="" method="post">
         @csrf
             <table class="shadow-lg bg-white">
                 <tr>
@@ -20,7 +20,7 @@
                     <td class="text-center border px-8 py-2">{{$dt->penduduk_nik}}</td>
                     <td class="text-center border px-10 py-2">{{$dt->penduduk_nama}}</td>   
                     <td class="text-center border px-8 py-2">{{$dt->penduduk_deskripsi}}</td>
-                    <td class="text-center border px-10 py-2">{{$dt->status_deskripsi}}</td>
+                    <td class="text-center border px-10 py-2">{{$dt->penduduk_status}}</td>
                     <td class="text-center border px-10 py-2">
                     <input name="penduduk_id[{{$loop->iteration}}]" value="{{$dt->penduduk_id}}" type="checkbox">
                     </td>
@@ -35,7 +35,4 @@
         </form>
         </div>
     </div>
-    <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"></script>
-    <script src="{{ asset('js/button_status.js') }}"></script> -->
 @endsection

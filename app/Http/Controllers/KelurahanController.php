@@ -43,7 +43,7 @@ class KelurahanController extends Controller
             $dt->approved_deskripsi = ApprovedStatus::where('id', $dt->approved_status)->value('deskripsi');
         }
         // dd($data);
-        return view('kelurahan.pendudukdashboard')
+        return view('kelurahan.penduduk_report')
         ->with('data',$data)
         ->with('kelurahan_id', $kelurahan_id);
     

@@ -7,6 +7,7 @@ use App\Models\Penduduk;
 use App\Models\RelasiPBA;
 use App\Models\BeritaAcara;
 use Illuminate\Http\Request;
+use App\Models\PendudukStatus;
 use Illuminate\Support\Facades\DB;
 
 class BAController extends Controller
@@ -61,6 +62,10 @@ class BAController extends Controller
         $data = $data->where('ba_id', $ba_id)
         ->get();
 
+        foreach($data as $dt){
+            $dt->status_deskripsi = DB::table('penduduk_status')->where('id',$dt->penduduk_status)->value('deskripsi');
+        }
+        // dd($data);
         return view('dinas.ba_update')
         ->with('data',$data)
         ->with('ba_id', $ba_id);
@@ -124,6 +129,6 @@ class BAController extends Controller
             'cek_dinas' => 1,
         ]);
         
-
+        return redirect()->route('dinasdashboard');
     }
 }
