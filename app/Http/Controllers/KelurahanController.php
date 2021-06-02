@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Penduduk;
 use App\Models\Kelurahan;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\ApprovedStatus;
 use Illuminate\Support\Facades\DB;
@@ -13,7 +14,7 @@ class KelurahanController extends Controller
     public function PendudukDashboard(Request $request){
 
         $kelurahan = auth()->user()->username;
-        $kelurahan_id = Kelurahan::where('kelurahan_nama',$kelurahan)->value('kelurahan_id');
+        $kelurahan_id = User::where('username', $kelurahan)->value('kelurahan_id');
         $data = DB::table('penduduk')
         ->leftjoin('penduduk_status','penduduk.penduduk_status','=','penduduk_status.id')
         // ->leftjoin('approved_status','penduduk.approved_status','=','approved_status.id')
@@ -32,7 +33,7 @@ class KelurahanController extends Controller
     public function PendudukReport(Request $request){
 
         $kelurahan = auth()->user()->username;
-        $kelurahan_id = Kelurahan::where('kelurahan_nama',$kelurahan)->value('kelurahan_id');
+        $kelurahan_id = User::where('username', $kelurahan)->value('kelurahan_id');
         $data = DB::table('penduduk')
         ->leftjoin('penduduk_status','penduduk.penduduk_status','=','penduduk_status.id')
         // ->leftjoin('approved_status','penduduk.approved_status','=','approved_status.id')
@@ -58,7 +59,7 @@ class KelurahanController extends Controller
     }
 
     public function Create(Request $request){
-
+        // dd($request);
         $this->validate($request, [
             'NIK' => 'required',
             'KK' => 'required',
@@ -68,9 +69,7 @@ class KelurahanController extends Controller
             'rt' => 'required',
             'rw' => 'required',
         ]);
-        
-        $kelurahan_id = Kelurahan::where('kelurahan_nama', $request->kelurahan)->value('kelurahan_id');
-
+        $kelurahan_id = User::where('username', $request->username)->value('kelurahan_id');
         Penduduk::create([
             'penduduk_nik' => $request->NIK,
             'penduduk_kk' => $request->KK,

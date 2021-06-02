@@ -110,7 +110,7 @@
                 </div> -->
                 <div class="mb-4">
                     Kelurahan: {{ auth()->user()->username }}
-                    <input type="hidden" name="kelurahan" value="{{ auth()->user()->username }}">
+                    <input type="hidden" name="username" value="{{ auth()->user()->username }}">
                 </div>
                 <div>
                     <button type="submit" class="bg-blue-500 text-white px-4 py-3 rounded font-medium w-full">
