@@ -37,7 +37,7 @@
                         <a href="{{ route('dinasdashboard') }}" class="p-3">Dashboard Dinas</a>
                     </li>
                     <li>
-                        <a href="" class="p-3">Pengecekan oleh Mentri</a>
+                        <a href="{{ route('mentridashboard') }}" class="p-3">Pengecekan oleh Mentri</a>
                     </li>
                     <li>
                         <a href="" class="p-3">Quartal</a>

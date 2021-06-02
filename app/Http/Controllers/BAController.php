@@ -15,6 +15,10 @@ class BAController extends Controller
     public function Create(Request $request){
         $kelurahan_id = $request->kelurahan_id;
 
+        $ba = BeritaAcara::latest('created_at')->first();
+        if($ba){
+            
+        }
         $data_periode = Periode::latest('created_at')->first();
         $periode = $data_periode->quarter . " - " . $data_periode->year;
         $data = Penduduk::where('kelurahan_id',$kelurahan_id)
