@@ -13,6 +13,7 @@
                     <td class="text-center border px-10 py-2">Deskripsi</td>
                     <td class="text-center border px-10 py-2">status</td>
                     <td class="text-center border px-10 py-2">approved</td>
+                    <td class="text-center border px-10 py-2">reject</td>
                 </tr>
                 @foreach($data as $dt)
                 <tr>
@@ -22,7 +23,10 @@
                     <td class="text-center border px-8 py-2">{{$dt->penduduk_deskripsi}}</td>
                     <td class="text-center border px-10 py-2">{{$dt->status_deskripsi}}</td>
                     <td class="text-center border px-10 py-2">
-                    <input name="penduduk_id[{{$loop->iteration}}]" value="{{$dt->penduduk_id}}" type="checkbox">
+                        <input name="penduduk_id[{{$loop->iteration}}]" value="{{$dt->penduduk_id}}" id="checkbox-acc-{{$dt->penduduk_id}}" type="checkbox" onclick="checkboxFunctionAcc({{$dt->penduduk_id}})">
+                    </td>
+                    <td class="text-center border px-10 py-2">
+                        <input name="penduduk_id_rejected[{{$loop->iteration}}]" value="{{$dt->penduduk_id}}" id="checkbox-rej-{{$dt->penduduk_id}}" type="checkbox" onclick="checkboxFunctionRej({{$dt->penduduk_id}})">
                     </td>
                 </tr>
                 @endforeach
@@ -35,7 +39,7 @@
         </form>
         </div>
     </div>
-    <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"></script>
-    <script src="{{ asset('js/button_status.js') }}"></script> -->
+    <script src="{{ asset('js/button_status.js') }}"></script>
 @endsection
