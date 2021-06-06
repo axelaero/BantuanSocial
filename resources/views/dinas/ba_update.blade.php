@@ -14,6 +14,7 @@
                     <td class="text-center border px-10 py-2">status</td>
                     <td class="text-center border px-10 py-2">approved</td>
                     <td class="text-center border px-10 py-2">reject</td>
+                    <td class="text-center border px-10 py-2">Alasan</td>
                 </tr>
                 @foreach($data as $dt)
                 <tr>
@@ -23,12 +24,16 @@
                     <td class="text-center border px-8 py-2">{{$dt->penduduk_deskripsi}}</td>
                     <td class="text-center border px-10 py-2">{{$dt->status_deskripsi}}</td>
                     <td class="text-center border px-10 py-2">
-                        <input name="penduduk_id[{{$loop->iteration}}]" value="{{$dt->penduduk_id}}" id="checkbox-acc-{{$dt->penduduk_id}}" type="checkbox" onclick="checkboxFunctionAcc({{$dt->penduduk_id}})">
+                        <input name="penduduk_id_approved[{{$loop->iteration}}]" value="{{$dt->penduduk_id}}" id="checkbox-acc-{{$dt->penduduk_id}}" type="checkbox" onclick="checkboxFunctionAcc({{$dt->penduduk_id}})" checked>
                     </td>
                     <td class="text-center border px-10 py-2">
                         <input name="penduduk_id_rejected[{{$loop->iteration}}]" value="{{$dt->penduduk_id}}" id="checkbox-rej-{{$dt->penduduk_id}}" type="checkbox" onclick="checkboxFunctionRej({{$dt->penduduk_id}})">
                     </td>
                 </tr>
+                    <td class="text-center border px-10 py-2">
+                        <input type="hidden" name="deskripsi[{{$loop->iteration}}][penduduk_id]" value="{{$dt->penduduk_id}}">
+                        <input type="text" name="deskripsi[{{$loop->iteration}}][data]">
+                    </td>
                 @endforeach
              </table>
              <input type="hidden" name="ba_id" value="{{$ba_id}}">

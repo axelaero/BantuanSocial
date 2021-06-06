@@ -56,6 +56,9 @@ Route::post('/ba_update',[BAController::class, 'Update'])->name('ba_update');
 //DINAS
 Route::get('/dinas/dashboard',[DinasController::class, 'DinasDashboard'])->name('dinasdashboard');
 Route::get('/mentri/dashboard',[DinasController::class, 'MentriDashboard'])->name('mentridashboard');
+Route::post('/mentri/update',[DinasController::class, 'MentriUpdate'])->name('mentriupdate');
+Route::get('/periode',[DinasController::class, 'PeriodeView'])->name('periode');
+Route::post('/periodecreate',[DinasController::class, 'PeriodeCreate'])->name('periodecreate');
 
 //not used
 Route::get('/posts', function () {

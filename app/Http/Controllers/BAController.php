@@ -72,57 +72,45 @@ class BAController extends Controller
     }
 
     public function Update(Request $request){
-        $penduduk_ids = $request->penduduk_id;
-        $ba_id = $request->ba_id;
-        // $data = DB::table('relasi_penduduk_ba')
-        // ->join('penduduk','relasi_penduduk_ba.penduduk_id','=','penduduk.penduduk_id');
-        // $data = $data->where('ba_id', $ba_id)
-        // ->get();
+        // dd($request);
 
-        //approved
-        foreach($penduduk_ids as $pi){
-            Penduduk::where('penduduk_id', $pi)
+        $ba_id = $request->ba_id;
+        $approved_ids = $request->penduduk_id_approved;
+        $denied_ids = $request->penduduk_id_rejected;
+        $deskripsi = $request->deskripsi;
+
+        foreach($approved_ids as $ai){
+            Penduduk::where('penduduk_id', $ai)
             ->update([
                 'approved_status' => 2,
             ]);
-            RelasiPBA::where('penduduk_id', $pi)
+            RelasiPBA::where('penduduk_id', $ai)
             ->update([
                 'cek_dinas' => 1,
             ]);
         }
-        //not approved
-        $data_denied = DB::table('relasi_penduduk_ba')
-        ->join('penduduk','relasi_penduduk_ba.penduduk_id','=','penduduk.penduduk_id')
-        ->where('ba_id', $ba_id)
-        ->where('cek_dinas',0)
-        ->get();
-
-        foreach($data_denied as $dd){
-            Penduduk::where('penduduk_id', $dd->penduduk_id)
+        foreach($denied_ids as $di){
+            Penduduk::where('penduduk_id', $di)
             ->update([
                 'approved_status' => 6,
             ]);
-            RelasiPBA::where('penduduk_id', $dd->penduduk_id)
+            RelasiPBA::where('penduduk_id', $di)
             ->update([
                 'cek_dinas' => 1,
             ]);
         }
-
-        // $data_denied = RelasiPBA::where('ba_id', $ba_id)
-        // ->where('cek_dinas',0)->get();
-        // foreach($data_denied as $dd){
-        //     Penduduk::where('penduduk_id', $dd->penduduk_id)
-        //     ->update([
-        //         'approved_status' => 2,
-        //     ]);
-        // }
-        // RelasiPBA::where('ba_id', $ba_id)
-        // ->where('cek_dinas',0)
-        // ->update([
-        //     'cek_dinas' => 1,
-        // ]);
         
-
+        foreach($deskripsi as $des){
+            
+            $id = $des["penduduk_id"];
+            $data = $des["data"];
+            if($data){
+                Penduduk::where('penduduk_id', $id)
+                ->update([
+                    'penduduk_deskripsi' => $data,
+                ]);
+            }      
+        }
         //update ba
         BeritaAcara::where('ba_id', $ba_id)
         ->update([

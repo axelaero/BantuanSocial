@@ -17,9 +17,6 @@
                     <li>
                         <a href="{{ route('admindashboard') }}" class="p-3">Dashboard Admin</a>
                     </li>
-                    <li>
-                        <a href="" class="p-3">Pengaturan Quartal</a>
-                    </li>
                 @endif
                 @if(auth()->user()->role == 3)
                     <li>
@@ -40,7 +37,7 @@
                         <a href="{{ route('mentridashboard') }}" class="p-3">Pengecekan oleh Mentri</a>
                     </li>
                     <li>
-                        <a href="" class="p-3">Quartal</a>
+                        <a href="{{ route('periode') }}" class="p-3">Pengaturan Periode</a>
                     </li>
                 @endif
             @endauth
