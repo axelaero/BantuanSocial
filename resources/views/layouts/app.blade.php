@@ -63,10 +63,6 @@
                     <a href="{{ route('register')}}" class="p-3">Register</a>
                 </li>
             @endguest
-
-            
-            
-            
         </ul>
     </nav>
     @yield('content')

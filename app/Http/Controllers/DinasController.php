@@ -77,6 +77,7 @@ class DinasController extends Controller
                 ]);
             }      
         }
+        //if approved, deskripsi change to "-", add bdt_id
         return redirect()->route('mentridashboard');
     }
 

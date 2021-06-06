@@ -41,7 +41,7 @@ class BAController extends Controller
         ]);
 
         foreach($data as $dt){
-            $ba_id = BeritaAcara::where('kelurahan_id',$kelurahan_id)->value('ba_id');
+            $ba_id = BeritaAcara::latest('created_at')->value('ba_id');
             $relasi_id = $ba_id . $dt->penduduk_id;
             RelasiPBA::create([
                 'relasi_id' => $relasi_id,
@@ -65,6 +65,7 @@ class BAController extends Controller
         foreach($data as $dt){
             $dt->status_deskripsi = DB::table('penduduk_status')->where('id',$dt->penduduk_status)->value('deskripsi');
         }
+        // dd($data);
         // dd($data);
         return view('dinas.ba_update')
         ->with('data',$data)

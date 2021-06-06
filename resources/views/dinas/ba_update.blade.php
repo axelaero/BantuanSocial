@@ -29,11 +29,11 @@
                     <td class="text-center border px-10 py-2">
                         <input name="penduduk_id_rejected[{{$loop->iteration}}]" value="{{$dt->penduduk_id}}" id="checkbox-rej-{{$dt->penduduk_id}}" type="checkbox" onclick="checkboxFunctionRej({{$dt->penduduk_id}})">
                     </td>
-                </tr>
                     <td class="text-center border px-10 py-2">
                         <input type="hidden" name="deskripsi[{{$loop->iteration}}][penduduk_id]" value="{{$dt->penduduk_id}}">
-                        <input type="text" name="deskripsi[{{$loop->iteration}}][data]">
+                        <input type="text" name="deskripsi[{{$loop->iteration}}][data]" id="input-deskripsi-{{$dt->penduduk_id}}">
                     </td>
+                </tr>
                 @endforeach
              </table>
              <input type="hidden" name="ba_id" value="{{$ba_id}}">
