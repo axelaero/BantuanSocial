@@ -15,10 +15,12 @@ class BeritaAcara extends Model
         'total_usulan',
         'total_perbaikan',
         'cek_dinas',
+        'part',
     ];
 
     protected $attributes = [
         'cek_dinas' => 0,
+        'part' => 1,
     ];
 
     protected $table = "berita_acara";

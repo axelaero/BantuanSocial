@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Periode;
-use App\Models\Kelurahan;
-use App\Models\BeritaAcara;
-use App\Models\RelasiPBA;
 use App\Models\Penduduk;
+use App\Models\Kelurahan;
+use App\Models\RelasiPBA;
+use App\Models\BeritaAcara;
 use Illuminate\Http\Request;
+use App\Models\ApprovedStatus;
 use Illuminate\Support\Facades\DB;
 
 class DinasController extends Controller
@@ -72,18 +73,19 @@ class DinasController extends Controller
             $data = $des["data"];
             if($data){
                 Penduduk::where('penduduk_id', $id)
+                ->where('approved_status', 8)
                 ->update([
                     'penduduk_deskripsi' => $data,
                 ]);
             }      
         }
         //if approved, deskripsi change to "-", add bdt_id
-        return redirect()->route('mentridashboard');
+        return redirect()->route('dinasreport');
     }
 
     public function PeriodeView(Request $request){
         $data_periode = Periode::latest('created_at')->first();
-        $data = $data_periode->quarter . " - " . $data_periode->year;
+        $data = $data_periode->semester . " - " . $data_periode->year;
         return view('dinas.periode')
         ->with('data', $data);
     }
@@ -93,10 +95,29 @@ class DinasController extends Controller
         $quarter = Periode::where('year', $year)->count();
         $quarter += 1;
         Periode::create([
-            'quarter' => "Q" . $quarter,
+            'semester' => "S" . $quarter,
             'year' => $year,
         ]);
         
         return redirect()->route('periode');
+    }
+
+    public function DinasReport(Request $request){
+
+        // $kelurahan = auth()->user()->username;
+        // $kelurahan_id = User::where('username', $kelurahan)->value('kelurahan_id');
+        $data = DB::table('penduduk')
+        ->leftjoin('penduduk_status','penduduk.penduduk_status','=','penduduk_status.id')
+        // ->leftjoin('approved_status','penduduk.approved_status','=','approved_status.id')
+        // ->where('kelurahan_id',$kelurahan_id)
+        ->where('periode','!=', 'none')
+        ->paginate(15);
+        foreach($data as $dt){
+            $dt->approved_deskripsi = ApprovedStatus::where('id', $dt->approved_status)->value('deskripsi');
+        }
+        // dd($data);
+        return view('dinas.dinas_report')
+        ->with('data',$data);
+    
     }
 }

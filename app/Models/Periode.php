@@ -10,7 +10,7 @@ class Periode extends Model
     use HasFactory;
 
     protected $fillable = [
-        'quarter',
+        'semester',
         'year',
     ];
 

@@ -69,19 +69,94 @@ class KelurahanController extends Controller
             'rt' => 'required',
             'rw' => 'required',
         ]);
-        $kelurahan_id = User::where('username', $request->username)->value('kelurahan_id');
-        Penduduk::create([
-            'penduduk_nik' => $request->NIK,
-            'penduduk_kk' => $request->KK,
-            'penduduk_id_bdt' => $request->BDT,
-            'penduduk_nama' => $request->nama,
-            'penduduk_alamat' => $request->alamat,
-            'penduduk_deskripsi' => $request->deskripsi,
-            'periode' => "none",
-            'kelurahan_id' => $kelurahan_id,
-            'rt' => $request->rt,
-            'rw' => $request->rw,
-        ]);
+
+        //VALIDATION//
+        $nama = $request->nama;
+        $nama = trim($nama);        //kurangin spasi dari sebelum kata pertama dan sesudah kata terakhir
+        $nama = ucwords($nama);     //bikin semua kata di awali dengan huruf besar karena nama
+        $nik_len = strlen($request->NIK);
+        $kk_len = strlen($request->KK);
+
+        //NIK DAN KK HARUS BERISI 16 DIGIT NANTINYA
+        // if($nik_len != 16 || $kk_len != 16){
+        //     return false;
+        // }
+
+        //Validasi nik dan nama
+        $val_nik_nama = Penduduk::where("penduduk_nik", $request->NIK)
+            ->where('penduduk_nama', '!=',$request->nama)
+            ->first();              //cari nik sama dengan nama yang berbeda
+        if($val_nik_nama){
+            return "ERROR, nama yang telah dicantumkan berbeda dengan data NIK sebelumnya!";
+            //response error
+        }
+
+        //Validasi nik sama pada periode yang sama
+        $new_nik = $request->NIK;
+        $val_new_nik = Penduduk::where('penduduk_nik', $new_nik)
+        ->where('periode', 'none')
+        ->first();
+        if($val_new_nik){
+            return "ERROR, NIK dan nama sudah didaftarkan sebelumnya!";
+            //response error
+        }
+
+        //Validasi pembuatan status dan deskripsi jika pernah ada sebelum nya
+        $val_status = Penduduk::where("penduduk_nik", $request->NIK)
+            ->latest('created_at')
+            ->first();
+            
+        if($val_status){
+
+            
+            if($val_status->approved_status == 2 || $val_status->approved_status == 3){
+                $app_status = $val_status->approved_status;
+                $deskripsi = $request->deskripsi;
+            }
+            if($val_status->approved_status == 6){
+                $app_status = 5;
+                $deskripsi = $val_status->deskripsi;
+            }
+            if($val_status->approved_status == 8){
+                $app_status = 7;
+                $deskripsi = $val_status->deskripsi;
+            }
+
+            //status nya penyesuaian
+            $kelurahan_id = User::where('username', $request->username)->value('kelurahan_id');
+            Penduduk::create([
+                'penduduk_nik' => $request->NIK,
+                'penduduk_kk' => $request->KK,
+                'penduduk_id_bdt' => $request->BDT,
+                'penduduk_nama' => $nama,
+                'penduduk_alamat' => $request->alamat,
+                // 'penduduk_status' => $status,
+                'penduduk_deskripsi' => $deskripsi,
+                'periode' => "none",
+                'kelurahan_id' => $kelurahan_id,
+                'approved_status' => $app_status,
+                'rt' => $request->rt,
+                'rw' => $request->rw,
+            ]);
+            
+        }else{
+
+            //BIKIN DATA BARU
+            $kelurahan_id = User::where('username', $request->username)->value('kelurahan_id');
+            Penduduk::create([
+                'penduduk_nik' => $request->NIK,
+                'penduduk_kk' => $request->KK,
+                'penduduk_id_bdt' => $request->BDT,
+                'penduduk_nama' => $nama,
+                'penduduk_alamat' => $request->alamat,
+                'penduduk_deskripsi' => $request->deskripsi,
+                'periode' => "none",
+                'kelurahan_id' => $kelurahan_id,
+                'rt' => $request->rt,
+                'rw' => $request->rw,
+            ]);
+        }
+
 
         return redirect()->route('pendudukdashboard');
     }

@@ -39,6 +39,9 @@
                     <li>
                         <a href="{{ route('periode') }}" class="p-3">Pengaturan Periode</a>
                     </li>
+                    <li>
+                        <a href="{{ route('dinasreport') }}" class="p-3">Report</a>
+                    </li>
                 @endif
             @endauth
         </ul>
@@ -47,6 +50,11 @@
                 <li>
                     <a href="" class="p-3">Hi, {{ auth()->user()->username }}!</a>
                 </li>
+                @if(auth()->user()->role == 0 || auth()->user()->role == 1)
+                    <li>
+                        <a href="{{ route('register')}}" class="p-3">Register New Account</a>
+                    </li>
+                @endif
                 <li>
                     <form action="{{ route('logout') }}" method="post" class="p-3 inline">
                         @csrf
@@ -54,14 +62,13 @@
                     </form>
                 </li>
             @endauth
-
             @guest
                 <li>
                     <a href="{{ route('login') }}" class="p-3">Login</a>
                 </li>
-                <li>
+                <!-- <li>
                     <a href="{{ route('register')}}" class="p-3">Register</a>
-                </li>
+                </li> -->
             @endguest
         </ul>
     </nav>

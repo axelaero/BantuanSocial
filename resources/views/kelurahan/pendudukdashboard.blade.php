@@ -11,6 +11,7 @@
                     <td class="text-center border px-10 py-2">Nama</td>
                     <td class="text-center border px-8 py-2">Alamat</td>
                     <td class="text-center border px-10 py-2">status</td>
+                    <td class="text-center border px-10 py-2">Deskripsi</td>
                     <!-- <td class="text-center border px-10 py-2">approved</td> -->
                     <!-- <td class="text-center border px-10 py-2">periode</td> -->
                 </tr>
@@ -46,6 +47,8 @@
                             <a href='/pendudukupdate/{{$dt->penduduk_id}}' class='btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline bg-green-700 hover:bg-green-900 text-white font-normal py-0.5 px-4 mr-1 rounded'>Update</a>
                         </td>
                     @endif
+                    
+                    <td class="text-center border px-8 py-2">{{$dt->penduduk_deskripsi}}</td>
                     <!-- @if($dt->approved_deskripsi)
                         <td class="text-center border px-10 py-2">{{$dt->approved_deskripsi}}</td>
                     @else
@@ -58,19 +61,20 @@
              </table>
         </div>
     </div>
-    <form action="{{ route('ba_create') }}" method="post">
-        @csrf
-        <input type="hidden" name="kelurahan_id" id="kelurahan_id" value="{{$kelurahan_id}}">
+    
     @if($button_count == $button_active & $button_count != 0)
-        <div class="flex justify-center" style="margin-top:25px">
-            <button type="submit" class="bg-blue-500 text-white px-4 py-3 rounded font-medium w-full" style="width:300px">
-            Buat Berita Acara</button>
-        </div>
+        <form action="{{ route('ba_create') }}" method="post">
+            @csrf
+            <input type="hidden" name="kelurahan_id" id="kelurahan_id" value="{{$kelurahan_id}}">
+            <div class="flex justify-center" style="margin-top:25px">
+                <button type="submit" class="bg-blue-500 text-white px-4 py-3 rounded font-medium w-full" style="width:300px">
+                Buat Berita Acara</button>
+            </div>
+        </form>
     @else
         <div class="flex justify-center" style="margin-top:25px">
             <button type="" class="bg-gray-500 text-white px-4 py-3 rounded font-medium w-full" style="width:300px">
             Tidak Bisa Buat Berita Acara</button>
         </div>
     @endif
-    </form>
 @endsection

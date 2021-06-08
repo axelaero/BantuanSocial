@@ -101,13 +101,6 @@
                         </div>
                     @enderror
                 </div>
-                <!-- <div class="mb-4">
-                    Periode: 
-                    {{$data->quarter}} - {{$data->year}}
-                    <input type="hidden" name="periode" value="
-                    {{$data->quarter}} - {{$data->year}}
-                    ">
-                </div> -->
                 <div class="mb-4">
                     Kelurahan: {{ auth()->user()->username }}
                     <input type="hidden" name="username" value="{{ auth()->user()->username }}">
