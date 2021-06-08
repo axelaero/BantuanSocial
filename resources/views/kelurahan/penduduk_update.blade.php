@@ -40,6 +40,11 @@
                 </tr>
                 <tr>
                     <td class='border text-center px-8 py-2'>
+                            <a href='/pendudukupdate?penduduk_id={{$penduduk_id}}&penduduk_status_id=8' class='btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline bg-green-700 hover:bg-green-900 text-white font-normal py-0.5 px-4 mr-1 rounded'>data perbaikan</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='border text-center px-8 py-2'>
                         <a href='/pendudukdelete?penduduk_id={{$penduduk_id}}' class='btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline bg-red-700 hover:bg-red-900 text-white font-normal py-0.5 px-4 mr-1 rounded' onclick="return confirm('Are you sure?')">Delete</a>
                     </td>
                 </tr>

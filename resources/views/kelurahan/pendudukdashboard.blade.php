@@ -18,11 +18,15 @@
                 <?php
                     $button_count = 0;  
                     $button_active = 0;
+                    $val_checker_status = 0;
                 ?>
                 @foreach($data as $dt)
                 <tr>
                     <?php
                         $button_count += 1;
+                        if($dt->penduduk_status == 7){
+                            $val_checker_status += 1;
+                        }
                     ?>
                     <td class="text-center border px-8 py-2">{{$loop->iteration}}</td>
                     <td class="text-center border px-8 py-2">{{$dt->penduduk_nik}}</td>
@@ -62,7 +66,7 @@
         </div>
     </div>
     
-    @if($button_count == $button_active & $button_count != 0)
+    @if($button_count == $button_active & $button_count != 0 & $val_checker_status == 0)
         <form action="{{ route('ba_create') }}" method="post">
             @csrf
             <input type="hidden" name="kelurahan_id" id="kelurahan_id" value="{{$kelurahan_id}}">

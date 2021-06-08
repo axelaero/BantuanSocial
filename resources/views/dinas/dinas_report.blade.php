@@ -27,9 +27,7 @@
                     <td class="text-center border px-10 py-2">{{$dt->penduduk_nama}}</td>
                     <td class="text-center border px-8 py-2">{{$dt->penduduk_alamat}}</td>
                     <td class="text-center border px-8 py-2">{{$dt->periode}}</td>  
-                    <td class="text-center border px-10 py-2">
-                        <a href='/pendudukupdate/{{$dt->penduduk_id}}'>{{$dt->deskripsi}}</a>
-                    </td>
+                    <td class="text-center border px-8 py-2">{{$dt->deskripsi}}</td> 
                     @if($dt->approved_deskripsi)
                         <td class="text-center border px-10 py-2">{{$dt->approved_deskripsi}}</td>
                     @else
@@ -42,5 +40,4 @@
         </div>
     </div>
 
-    {{ $data->links() }}
 @endsection

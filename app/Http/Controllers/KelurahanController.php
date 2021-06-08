@@ -34,12 +34,27 @@ class KelurahanController extends Controller
 
         $kelurahan = auth()->user()->username;
         $kelurahan_id = User::where('username', $kelurahan)->value('kelurahan_id');
-        $data = DB::table('penduduk')
-        ->leftjoin('penduduk_status','penduduk.penduduk_status','=','penduduk_status.id')
+        $iteration = DB::table('penduduk')
+        ->join('penduduk_status','penduduk.penduduk_status','=','penduduk_status.id')
         // ->leftjoin('approved_status','penduduk.approved_status','=','approved_status.id')
         ->where('kelurahan_id',$kelurahan_id)
         ->where('periode','!=', 'none')
-        ->get();
+        ->distinct('penduduk_nik')
+        ->pluck('penduduk_nik');
+        $data = array();
+        foreach($iteration as $i){
+            $temp = DB::table('penduduk')
+            ->join('penduduk_status','penduduk.penduduk_status','=','penduduk_status.id')
+            // ->leftjoin('approved_status','penduduk.approved_status','=','approved_status.id')
+            ->where('kelurahan_id',$kelurahan_id)
+            ->where('periode','!=', 'none')
+            ->where('penduduk_nik', $i)
+            ->latest('penduduk.created_at')
+            ->first();
+            array_push($data, $temp);
+            // dd($temp);
+        }
+        // dd($data);
         foreach($data as $dt){
             $dt->approved_deskripsi = ApprovedStatus::where('id', $dt->approved_status)->value('deskripsi');
         }
@@ -90,16 +105,19 @@ class KelurahanController extends Controller
             return "ERROR, nama yang telah dicantumkan berbeda dengan data NIK sebelumnya!";
             //response error
         }
-
-        //Validasi nik sama pada periode yang sama
-        $new_nik = $request->NIK;
-        $val_new_nik = Penduduk::where('penduduk_nik', $new_nik)
-        ->where('periode', 'none')
-        ->first();
-        if($val_new_nik){
-            return "ERROR, NIK dan nama sudah didaftarkan sebelumnya!";
-            //response error
-        }
+        
+        // $data_periode = Periode::latest('created_at')->first();
+        // $periode = $data_periode->semester . " - " . $data_periode->year;
+        // //Validasi nik sama pada periode yang sama
+        // $new_nik = $request->NIK;
+        // $val_new_nik = Penduduk::where('penduduk_nik', $new_nik)
+        // ->where('periode', 'none')      //check ke data yang belum ada id bdt dan blm dibuat bap
+        // // ->orWhere('periode', $periode)  //check ke data yang sudah ada id bdt dan juga ada bap
+        // ->first();
+        // if($val_new_nik){
+        //     return "ERROR, NIK dan nama sudah didaftarkan sebelumnya!";
+        //     //response error
+        // }
 
         //Validasi pembuatan status dan deskripsi jika pernah ada sebelum nya
         $val_status = Penduduk::where("penduduk_nik", $request->NIK)
@@ -108,18 +126,15 @@ class KelurahanController extends Controller
             
         if($val_status){
 
-            
             if($val_status->approved_status == 2 || $val_status->approved_status == 3){
-                $app_status = $val_status->approved_status;
+                $app_status = 4;
                 $deskripsi = $request->deskripsi;
+                $status = 7;
             }
-            if($val_status->approved_status == 6){
+            if($val_status->approved_status == 6 || $val_status->approved_status == 7){
                 $app_status = 5;
-                $deskripsi = $val_status->deskripsi;
-            }
-            if($val_status->approved_status == 8){
-                $app_status = 7;
-                $deskripsi = $val_status->deskripsi;
+                $deskripsi = $request->deskripsi;
+                $status = 7;
             }
 
             //status nya penyesuaian
@@ -130,7 +145,7 @@ class KelurahanController extends Controller
                 'penduduk_id_bdt' => $request->BDT,
                 'penduduk_nama' => $nama,
                 'penduduk_alamat' => $request->alamat,
-                // 'penduduk_status' => $status,
+                'penduduk_status' => $status,
                 'penduduk_deskripsi' => $deskripsi,
                 'periode' => "none",
                 'kelurahan_id' => $kelurahan_id,

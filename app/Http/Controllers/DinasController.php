@@ -29,6 +29,7 @@ class DinasController extends Controller
 
         $data = DB::table('penduduk')
         ->join('relasi_penduduk_ba', 'penduduk.penduduk_id','=','relasi_penduduk_ba.penduduk_id')
+        ->leftjoin('penduduk_status','penduduk.penduduk_status','=','penduduk_status.id')
         ->where('approved_status', 2)
         ->where('cek_dinas',1)
         ->where('cek_mentri',0)
@@ -59,7 +60,7 @@ class DinasController extends Controller
             foreach($denied_ids as $di){
                 Penduduk::where('penduduk_id', $di)
                 ->update([
-                    'approved_status' => 8,
+                    'approved_status' => 7,
                 ]);
                 RelasiPBA::where('penduduk_id', $di)
                 ->update([
@@ -73,7 +74,7 @@ class DinasController extends Controller
             $data = $des["data"];
             if($data){
                 Penduduk::where('penduduk_id', $id)
-                ->where('approved_status', 8)
+                ->where('approved_status', 7)
                 ->update([
                     'penduduk_deskripsi' => $data,
                 ]);
@@ -104,18 +105,30 @@ class DinasController extends Controller
 
     public function DinasReport(Request $request){
 
-        // $kelurahan = auth()->user()->username;
-        // $kelurahan_id = User::where('username', $kelurahan)->value('kelurahan_id');
-        $data = DB::table('penduduk')
-        ->leftjoin('penduduk_status','penduduk.penduduk_status','=','penduduk_status.id')
+        $iteration = DB::table('penduduk')
+        ->join('penduduk_status','penduduk.penduduk_status','=','penduduk_status.id')
         // ->leftjoin('approved_status','penduduk.approved_status','=','approved_status.id')
         // ->where('kelurahan_id',$kelurahan_id)
         ->where('periode','!=', 'none')
-        ->paginate(15);
+        ->distinct('penduduk_nik')
+        ->pluck('penduduk_nik');
+        $data = array();
+        foreach($iteration as $i){
+            $temp = DB::table('penduduk')
+            ->join('penduduk_status','penduduk.penduduk_status','=','penduduk_status.id')
+            // ->leftjoin('approved_status','penduduk.approved_status','=','approved_status.id')
+            // ->where('kelurahan_id',$kelurahan_id)
+            ->where('periode','!=', 'none')
+            ->where('penduduk_nik', $i)
+            ->latest('penduduk.created_at')
+            ->first();
+            array_push($data, $temp);
+            // dd($temp);
+        }
+        // dd($data);
         foreach($data as $dt){
             $dt->approved_deskripsi = ApprovedStatus::where('id', $dt->approved_status)->value('deskripsi');
         }
-        // dd($data);
         return view('dinas.dinas_report')
         ->with('data',$data);
     
