@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use PDF;
 use App\Models\Periode;
 use App\Models\Penduduk;
 use App\Models\RelasiPBA;
 use App\Models\BeritaAcara;
 use Illuminate\Http\Request;
+use App\Models\ApprovedStatus;
 use App\Models\PendudukStatus;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Foundation\Auth\User;
 
 class BAController extends Controller
 {
@@ -139,5 +142,32 @@ class BAController extends Controller
         ]);
         
         return redirect()->route('dinasreport');
+    }
+
+    public function printPDF(Request $request){
+        // $ba_id = $request->ba_id;
+
+        $kelurahan_id = 2;
+        $data = DB::table('penduduk')
+        ->leftjoin('penduduk_status','penduduk.penduduk_status','=','penduduk_status.id')
+        // ->leftjoin('approved_status','penduduk.approved_status','=','approved_status.id')
+        ->where('kelurahan_id',$kelurahan_id)
+        ->where('periode', 'none')
+        ->get();
+        foreach($data as $dt){
+            $dt->approved_deskripsi = ApprovedStatus::where('id', $dt->approved_status)->value('deskripsi');
+        }
+        // dd($data);
+        // return view('kelurahan.pendudukdashboard')
+        // ->with('data',$data)
+        // ->with('kelurahan_id', $kelurahan_id);
+        
+    	// $pegawai = Pegawai::all();
+        
+        return view('dinas.ba_print')
+        ->with('data',$data);
+
+    	$pdf = PDF::loadview('dinas.ba_print',['data'=>$data]);
+    	return $pdf->download('bansos.pdf');
     }
 }
