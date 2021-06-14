@@ -15,7 +15,13 @@
                     <td class="text-center border px-10 py-2">approved</td>
                     <td class="text-center border px-10 py-2">Deskripsi</td>
                 </tr>
+                <?php
+                    $count = 0;
+                ?>
                 @foreach($data as $dt)
+                <?php
+                    $count += 1;
+                ?>
                 <tr>
                     <td class="text-center border px-8 py-2">{{$loop->iteration}}</td>
                     <td class="text-center border px-8 py-2">{{$dt->penduduk_nik}}</td>
@@ -37,6 +43,11 @@
                 </tr>
                 @endforeach
              </table>
+             @if($count == 0)  
+                <div class="flex justify-center" style="margin-top:25px">
+                    No Data
+                </div>
+             @endif
         </div>
     </div>
 

@@ -164,8 +164,8 @@ class BAController extends Controller
         
     	// $pegawai = Pegawai::all();
         
-        return view('dinas.ba_print')
-        ->with('data',$data);
+        // return view('dinas.ba_print')
+        // ->with('data',$data);
 
     	$pdf = PDF::loadview('dinas.ba_print',['data'=>$data]);
     	return $pdf->download('bansos.pdf');

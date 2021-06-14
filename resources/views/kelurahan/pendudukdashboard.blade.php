@@ -77,6 +77,9 @@
         </form>
     @else
         <div class="flex justify-center" style="margin-top:25px">
+            No Data
+        </div>
+        <div class="flex justify-center" style="margin-top:25px">
             <button type="" class="bg-gray-500 text-white px-4 py-3 rounded font-medium w-full" style="width:300px">
             Tidak Bisa Buat Berita Acara</button>
         </div>

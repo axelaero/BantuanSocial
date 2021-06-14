@@ -1,20 +1,133 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Laporan Pengajuan Bansos Kelurahan</title>
+	<title>Berita Acara dan Prelist Akhir Musywarah Kelurahan</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-</head>
-<body>
 	<style type="text/css">
 		table tr td,
 		table tr th{
 			font-size: 9pt;
 		}
 	</style>
-	DISINI
-	[tanggal]
-	<center>
-		<h4>Laporan Pengajuan Bansos Kelurahan</h4>
+</head>
+<body>
+	<table align="center">
+		<tr>
+			<td>[Logo Kota Bandung]	</td>
+			<td><center><b>
+			<font size="2">PEMERINTAH KOTA BANDUNG</font><BR>
+			<font size="3">KECAMATAN [kecamatan_nama]</font><BR>
+			<font size="4">KELURAHAN [kelurahan_nama]</font><BR>
+			<font size="1">[kelurahan_alamat] [kelurahan_telepon]</font></b></center>
+		</tr>
+	</table>
+	<hr width ="100%" size ="10">
+	<table align="center">
+		<tr>
+			<td> <center>VERIFIKASI DAN VALIDASI DATA TERPADU KESEJAHTERAAN SOSIAL<BR>
+			 PENANGANAN FAKIR MISKIN DAN ORANG TIDAK MAMPU TAHUN [tahun]</center> </td>
+		</tr>
+		<tr>
+			<td height="20"></td>
+		</tr>
+		<tr>
+			<td><b><center>BERITA ACARA MUSYWARAH HASIL FORUM MUSYWARAH</center></b></td>
+		</tr>
+		<tr>
+			<td height="20"></td>
+		</tr>
+	</table>
+	<p style= "text-indent:45px;"> Pada hari ini [Hari] tanggal [TANGGAL] telah dilaksanakan musyawarah. </p>
+	<table>
+		<tr>
+			<td>Provinsi</td>
+			<td>:</td> 
+			<td>Jawa Barat</td>
+		</tr>
+		<tr>
+			<td>Kota</td>
+			<td>:</td> 
+			<td>Bandung</td>
+		</tr>
+		<tr>
+			<td>Kecamatan</td>
+			<td>:</td> 
+			<td>[kecamatan_nama]</td>
+		</tr>
+		<tr>
+			<td>Kelurahan</td>
+			<td>:</td> 
+			<td>[kelurahan_nama]</td>
+		</tr>
+		<tr>
+		<td height ="20"></td>
+	</table>
+	<p style= "text-indent:45px;"> Berdasarkan hasil kegiatan tersebut, bahwa pada wilayah kami telah disepakati <BR>
+	hasil pelaksanaan musyawarah Desa/Kelurahan sebagai berikut: </p>
+	<table>
+		<tr>
+			<td> 1. Keberadaan dan Status Data Prelist </td>
+		</tr>
+		<tr>
+			<td> a. Jumlah Rumah Tangga Tidak Ditemukan </td>
+			<td> : </td>
+			<td> [Count penduduk_status = '6' and '4'] </td>
+			<td> Rumah Tangga </td>
+		</tr>
+		<tr>
+			<td> b. Jumlah Rumah Tangga Mampu </td>
+			<td> : </td>
+			<td> [Count penduduk_status = '3'] </td>	
+			<td> Rumah Tangga </td>
+		</tr>
+		<tr>
+			<td> c. Jumlah Rumah Tangga Pindah </td>			
+			<td> : </td> 
+			<td> [Count penduduk_status = '1' and '2'] </td>
+			<td> Rumah Tangga </td>
+		</tr>
+		<tr>
+			<td> d. Jumlah Rumah Tangga Diperbaiki </td>		
+			<td> : </td> 
+			<td> [Count penduduk_status = '8'] </td> 
+			<td> Rumah Tangga </td>
+		</tr>
+		<tr>
+			<td height ="20"></td>
+		</tr>
+		<tr>
+			<td><b> Total Rumah Tangga Prelist </b></td>
+			<td><b> : </b></td>
+			<td><b> [Total Count] </b></td>
+			<td><b> Rumah Tangga </b></td>
+		</tr>
+		<tr>
+			<td height = "20" ></td>
+		</tr>
+		<tr>
+			<td>2. Jumlah Rumah Tangga Usulan Baru</td>
+			<td>:</td> 
+			<td>[Count penduduk_status = '0']</td> 
+			<td>Rumah Tangga</td>
+		</tr>
+		<tr>
+			<td height = "25"></td>
+		</tr>
+	</table>
+
+	<p style = "text-indent:45px;">Demikian berita acara ini dibuat untuk digunakan sebagaimana mestinya.</P>
+
+
+																	Kota Bandung [Tanggal]
+		LURAH [kelurahan_nama]												PETUGAS
+
+
+
+
+
+		(.....................)										(.......................)
+ 	<center>
+		<h4>Laporan Prelist Akhir Musyarah Kelurahan</h4>
 	</center>
 	<table class='table table-bordered'>
 		<thead>
@@ -47,6 +160,5 @@
 			@endforeach
 		</tbody>
 	</table>
-
 </body>
 </html>
