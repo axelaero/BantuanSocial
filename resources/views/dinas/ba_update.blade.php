@@ -1,6 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+    <div class="flex justify-center" style="margin-top:25px">
+        <font size="28">
+            <h1>Berita Acara</h1>
+        </font>
+    </div>
+    <br>
 <div class="flex justify-center">
         <div class="w-12/12 bg-white p-6 rounded-lg justify-center flex">
         <form action="{{ route('ba_update') }}" method="post">
@@ -39,7 +45,7 @@
              <input type="hidden" name="ba_id" value="{{$ba_id}}">
              <div class="flex justify-center" style="margin-top:25px">
                 <button type="submit" class="bg-blue-500 text-white px-4 py-3 rounded font-medium w-full" style="width:300px">
-                Approved</button>
+                Submit</button>
             </div>
         </form>
         </div>

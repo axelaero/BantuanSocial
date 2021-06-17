@@ -32,6 +32,6 @@ class LoginController extends Controller
             return redirect()->route('admindashboard');
         }
 
-        return redirect()->route('dashboard');
+        return redirect()->route('home');
     }
 }

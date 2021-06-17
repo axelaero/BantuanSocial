@@ -1,10 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
+    <!-- <div class="flex justify-center" style="margin-top:25px">
+        <font size="28">
+            <h1>Pengajuan Penduduk</h1>
+        </font>
+    </div>
+    <br> -->
     <div class="flex justify-center">
         <div class="w-4/12 bg-white p-6 rounded-lg">
             <form action="{{ route('pendudukcreate') }}" method="post">
             @csrf
+                <div class="mb-4 justify-center">
+                    <font size="24">
+                        Pengajuan Penduduk  
+                    </font>
+                </div>
                 <div class="mb-4">
                     <label for="NIK" class="sr-only">NIK</label>
                     <input type="text" name="NIK" id="NIK" placeholder="NIK" 

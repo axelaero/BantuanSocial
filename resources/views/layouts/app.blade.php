@@ -20,27 +20,27 @@
                 @endif
                 @if(auth()->user()->role == 3)
                     <li>
-                        <a href="{{ route('pendudukdashboard') }}" class="p-3">Data Baru</a>
+                        <a href="{{ route('pendudukdashboard') }}" class="p-3">Rekap Musyawarah Kelurahan</a>
                     </li>
                     <li>
-                        <a href="{{ route('pendudukcreateview') }}" class="p-3">Pembuatan Data Baru</a>
+                        <a href="{{ route('pendudukcreateview') }}" class="p-3">Pengajuan Penduduk</a>
                     </li>
                     <li>
-                        <a href="{{ route('pendudukreport') }}" class="p-3">Report</a>
+                        <a href="{{ route('pendudukreport') }}" class="p-3">Rekap Data Penduduk</a>
                     </li>
                 @endif
                 @if(auth()->user()->role == 2)
                     <li>
-                        <a href="{{ route('dinasdashboard') }}" class="p-3">Dashboard Dinas</a>
+                        <a href="{{ route('dinasdashboard') }}" class="p-3">Rekap Hasil Musyawarah Kelurahan</a>
                     </li>
                     <li>
-                        <a href="{{ route('mentridashboard') }}" class="p-3">Pengecekan oleh Mentri</a>
+                        <a href="{{ route('mentridashboard') }}" class="p-3">Update Data Penduduk</a>
                     </li>
                     <li>
                         <a href="{{ route('periode') }}" class="p-3">Pengaturan Periode</a>
                     </li>
                     <li>
-                        <a href="{{ route('dinasreport') }}" class="p-3">Report</a>
+                        <a href="{{ route('dinasreport') }}" class="p-3">Rekap Penduduk</a>
                     </li>
                 @endif
             @endauth

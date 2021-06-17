@@ -1,6 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+    <div class="flex justify-center" style="margin-top:25px">
+        <font size="28">
+            <h1>Update Data Penduduk</h1>
+        </font>
+    </div>
+    <br>
 <div class="flex justify-center">
         <div class="w-12/12 bg-white p-6 rounded-lg justify-center flex">
         <form action="{{ route('mentriupdate') }}" method="post">
