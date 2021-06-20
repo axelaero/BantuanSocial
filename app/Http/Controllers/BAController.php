@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use PDF;
 use App\Models\Periode;
 use App\Models\Penduduk;
+use App\Models\Kelurahan;
 use App\Models\RelasiPBA;
 use App\Models\BeritaAcara;
 use Illuminate\Http\Request;
@@ -163,11 +164,24 @@ class BAController extends Controller
         // ->with('kelurahan_id', $kelurahan_id);
         
     	// $pegawai = Pegawai::all();
-        
+        $kelurahan = Kelurahan::where('kelurahan_id',$kelurahan_id)->first();
+        // dd($kelurahan);
+    	$pdf = PDF::loadview('dinas.ba_print',[
+            'data'=>$data,
+            'kelurahan'=>$kelurahan,
+        ]);
+        $pdf->getDomPDF()->setHttpContext(
+            stream_context_create([
+                'ssl' => [
+                    'allow_self_signed'=> TRUE,
+                    'verify_peer' => FALSE,
+                    'verify_peer_name' => FALSE,
+                ]
+            ])
+        );
+    	return $pdf->download('bansos.pdf');
+
         return view('dinas.ba_print')
         ->with('data',$data);
-        
-    	$pdf = PDF::loadview('dinas.ba_print',['data'=>$data]);
-    	return $pdf->download('bansos.pdf');
     }
 }

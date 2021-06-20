@@ -13,19 +13,39 @@
 <body>
 	<table align="center">
 		<tr>
-			<td>[Logo Kota Bandung]	</td>
-			<td><center><b>
-			<font size="2">PEMERINTAH KOTA BANDUNG</font><BR>
-			<font size="3">KECAMATAN [kecamatan_nama]</font><BR>
-			<font size="4">KELURAHAN [kelurahan_nama]</font><BR>
-			<font size="1">[kelurahan_alamat] [kelurahan_telepon]</font></b></center>
+			<td>
+				<!-- <div class="flex justify-center pt-8 sm:justify-start sm:pt-0"> -->
+					<!-- <div > -->
+						<img style="width: 200px;  height: auto;" src="{{ public_path('assets/KotaBandung.png') }}">
+						
+						<!-- <img style="width: 200px;  height: auto;" src="{{ asset('assets/Bandung.svg') }}"> -->
+  					<!-- </div> -->
+				<!-- </div>	 -->
+			</td>
+			<td>
+				<center>
+				<b>
+					<font size="2">PEMERINTAH KOTA BANDUNG</font><BR>
+					<font size="3">KECAMATAN {{$kelurahan->kecamatan_nama}}</font><BR>
+					<font size="4">KELURAHAN {{$kelurahan->kelurahan_nama}}</font><BR>
+					<font size="1">Alamat : {{$kelurahan->kelurahan_alamat}} Tlp : {{$kelurahan->kelurahan_telepon}}</font>
+				</b>
+				</center>
+			</td>
+			<td>
+				<div style="width: 200px;  height: auto;"></div>
+			</td>
 		</tr>
 	</table>
 	<hr width ="100%" size ="10">
 	<table align="center">
 		<tr>
 			<td> <center>VERIFIKASI DAN VALIDASI DATA TERPADU KESEJAHTERAAN SOSIAL<BR>
-			 PENANGANAN FAKIR MISKIN DAN ORANG TIDAK MAMPU TAHUN [tahun]</center> </td>
+			 PENANGANAN FAKIR MISKIN DAN ORANG TIDAK MAMPU TAHUN 
+			 <?php
+			 	$year = date('Y');
+				 echo $year;
+			 ?></center> </td>
 		</tr>
 		<tr>
 			<td height="20"></td>
@@ -37,7 +57,37 @@
 			<td height="20"></td>
 		</tr>
 	</table>
-	<p style= "text-indent:45px;"> Pada hari ini [Hari] tanggal [TANGGAL] telah dilaksanakan musyawarah. </p>
+	<p style= "text-indent:45px;"> Pada hari ini, 
+	<?php
+	$day = date("l"); 
+	$hari = null;
+	if($day == 'Sunday'){
+		$hari = 'Minggu';
+	}
+	if($day == 'Monday'){
+		$hari = 'Senin';
+	}
+	if($day == 'Teusday'){
+		$hari = 'Selasa';
+	}
+	if($day == 'Wednesday'){
+		$hari = 'Rabu';
+	}
+	if($day == 'Thursday'){
+		$hari = 'Kamis';
+	}
+	if($day == 'Friday'){
+		$hari = 'Jumat';
+	}
+	if($day == 'Saturday'){
+		$hari = 'Sabtu';
+	}
+	 echo $hari;
+	?> tanggal 
+	<?php
+		$date = date('d-m');
+		echo $date . '-' . $year;
+	?> telah dilaksanakan musyawarah. </p>
 	<table>
 		<tr>
 			<td>Provinsi</td>
@@ -52,12 +102,12 @@
 		<tr>
 			<td>Kecamatan</td>
 			<td>:</td> 
-			<td>[kecamatan_nama]</td>
+			<td>{{$kelurahan->kecamatan_nama}}</td>
 		</tr>
 		<tr>
 			<td>Kelurahan</td>
 			<td>:</td> 
-			<td>[kelurahan_nama]</td>
+			<td>{{$kelurahan->kelurahan_nama}}</td>
 		</tr>
 		<tr>
 		<td height ="20"></td>
@@ -118,14 +168,64 @@
 	<p style = "text-indent:45px;">Demikian berita acara ini dibuat untuk digunakan sebagaimana mestinya.</P>
 
 
-																	Kota Bandung [Tanggal]
+		<table align='center'>
+			<tr>
+				<td>
+				<center>
+				LURAH [kelurahan_nama]
+				</center>
+				</td>
+				<td>
+				<div style="width: 200px;  height: auto;"></div>
+				</td>
+				<td>
+				<center>
+				Kota Bandung, <?php
+				echo date('d-m') . '-' . $year;?> <br>
+				PETUGAS
+				</center>
+				</td>
+				<td>
+				<div style="width: 200px;  height: auto;"></div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+				<br>
+				<br>
+				<br>
+				<br>
+				<center>
+				(..........................................)
+				</center>
+				</td>
+				<td>
+				<div style="width: 200px;  height: auto;"></div>
+				</td>
+				<td>
+				<br>
+				<br>
+				<br>
+				<br>
+				<center>
+				(..........................................)
+				</center>
+				</td>
+				<td>
+				<div style="width: 200px;  height: auto;"></div>
+				</td>
+			</tr>
+
+		</table>
+																	<!-- Kota Bandung [Tanggal]
 		LURAH [kelurahan_nama]												PETUGAS
 
 
 
 
-
-		(.....................)										(.......................)
+		
+		(.....................)										(.......................) -->
+		<br><br><br><br><br><br><br><br><br>
  	<center>
 		<h4>Laporan Prelist Akhir Musyarah Kelurahan</h4>
 	</center>
