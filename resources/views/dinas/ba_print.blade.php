@@ -23,6 +23,9 @@
 				<!-- </div>	 -->
 			</td>
 			<td>
+				<div style="width: 100px;  height: auto;"></div>
+			</td>
+			<td>
 				<center>
 				<b>
 					<font size="2">PEMERINTAH KOTA BANDUNG</font><BR>
@@ -35,23 +38,26 @@
 			<td>
 				<div style="width: 100px;  height: auto;"></div>
 			</td>
+			<td>
+				<div style="width: 100px;  height: auto;"></div>
+			</td>
 		</tr>
 	</table>
 	<hr width ="100%" size ="10">
 	<table align="center">
 		<tr>
-			<td> <center>VERIFIKASI DAN VALIDASI DATA TERPADU KESEJAHTERAAN SOSIAL<BR>
+			<td> <center><font size="14">VERIFIKASI DAN VALIDASI DATA TERPADU KESEJAHTERAAN SOSIAL<BR>
 			 PENANGANAN FAKIR MISKIN DAN ORANG TIDAK MAMPU TAHUN 
 			 <?php
 			 	$year = date('Y');
 				 echo $year;
-			 ?></center> </td>
+			 ?></font></center> </td>
 		</tr>
 		<tr>
 			<td height="20"></td>
 		</tr>
 		<tr>
-			<td><b><center>BERITA ACARA MUSYWARAH HASIL FORUM MUSYWARAH</center></b></td>
+			<td><center><font size="15"><b>BERITA ACARA MUSYWARAH HASIL FORUM MUSYWARAH</b></font></center></td>
 		</tr>
 		<tr>
 			<td height="20"></td>
@@ -88,30 +94,32 @@
 		$date = date('d-m');
 		echo $date . '-' . $year;
 	?> telah dilaksanakan musyawarah. </p>
-	<table style= "margin-left:95px;">
-		<tr>
-			<td>Provinsi</td>
-			<td>:</td> 
-			<td>Jawa Barat</td>
-		</tr>
-		<tr>
-			<td>Kota</td>
-			<td>:</td> 
-			<td>Bandung</td>
-		</tr>
-		<tr>
-			<td>Kecamatan</td>
-			<td>:</td> 
-			<td>{{ucwords($kelurahan->kecamatan_nama)}}</td>
-		</tr>
-		<tr>
-			<td>Kelurahan</td>
-			<td>:</td> 
-			<td>{{ucwords($kelurahan->kelurahan_nama)}}</td>
-		</tr>
-		<tr>
-		<td height ="20"></td>
-	</table>
+	
+		<table style= "margin-left:95px;">
+			<tr>
+				<td><font size="12">Provinsi</font></td>
+				<td><font size="12">:</font></td> 
+				<td><font size="12">Jawa Barat</font></td>
+			</tr>
+			<tr>
+				<td><font size="12">Kota</font></td>
+				<td><font size="12">:</font></td> 
+				<td><font size="12">Bandung</font></td>
+			</tr>
+			<tr>
+				<td><font size="12">Kecamatan</font></td>
+				<td><font size="12">:</font></td> 
+				<td><font size="12">{{ucwords($kelurahan->kecamatan_nama)}}</font></td>
+			</tr>
+			<tr>
+				<td><font size="12">Kelurahan</font></td>
+				<td><font size="12">:</font></td> 
+				<td><font size="12">{{ucwords($kelurahan->kelurahan_nama)}}</font></td>
+			</tr>
+			<tr>
+			<td height ="20"></td>
+		</table>
+	
 	<p style= "text-indent:45px; margin-left:45px;"> Berdasarkan hasil kegiatan tersebut, bahwa pada wilayah kami telah disepakati <BR>
 	hasil pelaksanaan musyawarah Desa/Kelurahan sebagai berikut: </p>
 	@php
@@ -155,52 +163,52 @@
 	@endforeach
 	<table style= "margin-left:95px;">
 		<tr>
-			<td> <b>1. Keberadaan dan Status Data Prelist</b> </td>
+			<td><font size="12"> <b>1. Keberadaan dan Status Data Prelist</b> </font></td>
 		</tr>
 		<tr>
-			<td> a. Jumlah Rumah Tangga Tidak Ditemukan </td>
-			<td> : </td>
-			<td> <?php echo $data_a; ?> </td>
-			<td> Rumah Tangga </td>
+			<td><font size="12"> a. Jumlah Rumah Tangga Tidak Ditemukan </font></td>
+			<td><font size="12"> : </font></td>
+			<td><font size="12"> <?php echo $data_a; ?> </font></td>
+			<td><font size="12"> Rumah Tangga </font></td>
 		</tr>
 		<tr>
-			<td> b. Jumlah Rumah Tangga Mampu </td>
-			<td> : </td>
-			<td> <?php echo $data_b; ?> </td>	
-			<td> Rumah Tangga </td>
+			<td><font size="12"> b. Jumlah Rumah Tangga Mampu </font></td>
+			<td><font size="12"> : </font></td>
+			<td><font size="12"> <?php echo $data_b; ?> </font></td>	
+			<td><font size="12"> Rumah Tangga </font></td>
 		</tr>
 		<tr>
-			<td> c. Jumlah Rumah Tangga Pindah </td>			
-			<td> : </td> 
-			<td> <?php echo $data_c; ?> </td>
-			<td> Rumah Tangga </td>
+			<td><font size="12"> c. Jumlah Rumah Tangga Pindah </font></td>			
+			<td><font size="12"> : </font></td> 
+			<td><font size="12"> <?php echo $data_c; ?> </font></td>
+			<td><font size="12"> Rumah Tangga </font></td>
 		</tr>
 		<tr>
-			<td> d. Jumlah Rumah Tangga Diperbaiki </td>		
-			<td> : </td> 
-			<td> <?php echo $data_d; ?> </td> 
-			<td> Rumah Tangga </td>
+			<td><font size="12"> d. Jumlah Rumah Tangga Diperbaiki </font></td>		
+			<td><font size="12"> : </font></td> 
+			<td><font size="12"> <?php echo $data_d; ?> </font></td> 
+			<td><font size="12"> Rumah Tangga </font></td>
 		</tr>
 		<tr>
 			<td height ="20"></td>
 		</tr>
 		<tr>
-			<td><b> Total Rumah Tangga Prelist </b></td>
-			<td><b> : </b></td>
-			<td><b> <?php echo $total_data; ?> </b></td>
-			<td><b> Rumah Tangga </b></td>
+			<td><font size="12"><b> Total Rumah Tangga Prelist </b></font></td>
+			<td><font size="12"><b> : </b></font></td>
+			<td><font size="12"><b> <?php echo $total_data; ?> </b></font></td>
+			<td><font size="12"><b> Rumah Tangga </b></font></td>
 		</tr>
 		<tr>
 			<td height = "20" ></td>
 		</tr>
 		<tr>
-			<td><b>2. Jumlah Rumah Tangga Usulan Baru</b></td>
-			<td>:</td> 
-			<td><?php echo $data_baru; ?></td> 
-			<td>Rumah Tangga</td>
+			<td><font size="12"><b>2. Jumlah Rumah Tangga Usulan Baru</b></font></td>
+			<td><font size="12">:</font></td> 
+			<td><font size="12"><?php echo $data_baru; ?></font></td> 
+			<td><font size="12">Rumah Tangga</font></td>
 		</tr>
 		<tr>
-			<td height = "25"></td>
+			<td height = "20"></td>
 		</tr>
 	</table>
 
