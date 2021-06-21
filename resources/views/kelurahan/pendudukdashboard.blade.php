@@ -77,7 +77,7 @@
             @csrf
             <input type="hidden" name="kelurahan_id" id="kelurahan_id" value="{{$kelurahan_id}}">
             <div class="flex justify-center" style="margin-top:25px">
-                <button type="submit" class="bg-blue-500 text-white px-4 py-3 rounded font-medium w-full" style="width:300px">
+                <button type="submit" id="btn-print" class="bg-blue-500 text-white px-4 py-3 rounded font-medium w-full" style="width:300px">
                 Buat Berita Acara</button>
             </div>
         </form>
@@ -90,4 +90,7 @@
             Tidak Bisa Buat Berita Acara</button>
         </div>
     @endif
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"></script>
+    <script src="{{ asset('js/print_pdf.js') }}"></script>
 @endsection

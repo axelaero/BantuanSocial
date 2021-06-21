@@ -52,6 +52,7 @@ Route::get('/pendudukdelete',[KelurahanController::class, 'Delete'])->name('pend
 Route::post('/ba_create',[BAController::class, 'Create'])->name('ba_create');
 Route::get('/ba_update/{id}',[BAController::class, 'UpdateView'])->name('ba_updateview');
 Route::post('/ba_update',[BAController::class, 'Update'])->name('ba_update');
+Route::get('/ba/printview', [BAController::class, 'printview'])->name('printview');
 Route::get('/ba/printpdf', [BAController::class, 'printPDF'])->name('printpdf');
 
 //DINAS

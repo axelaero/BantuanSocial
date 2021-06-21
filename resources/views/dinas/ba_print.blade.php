@@ -16,7 +16,7 @@
 			<td>
 				<!-- <div class="flex justify-center pt-8 sm:justify-start sm:pt-0"> -->
 					<!-- <div > -->
-						<img style="width: 200px;  height: auto;" src="{{ public_path('assets/KotaBandung.png') }}">
+						<img style="width: 100px;  height: auto;" src="{{ public_path('assets/KotaBandung.png') }}">
 						
 						<!-- <img style="width: 200px;  height: auto;" src="{{ asset('assets/Bandung.svg') }}"> -->
   					<!-- </div> -->
@@ -26,14 +26,14 @@
 				<center>
 				<b>
 					<font size="2">PEMERINTAH KOTA BANDUNG</font><BR>
-					<font size="3">KECAMATAN {{$kelurahan->kecamatan_nama}}</font><BR>
-					<font size="4">KELURAHAN {{$kelurahan->kelurahan_nama}}</font><BR>
-					<font size="1">Alamat : {{$kelurahan->kelurahan_alamat}} Tlp : {{$kelurahan->kelurahan_telepon}}</font>
+					<font size="3">KECAMATAN {{strtoupper($kelurahan->kecamatan_nama)}}</font><BR>
+					<font size="4">KELURAHAN {{strtoupper($kelurahan->kelurahan_nama)}}</font><BR>
+					<font size="1">Alamat : {{ucwords($kelurahan->kelurahan_alamat)}} Tlp : (022)-{{$kelurahan->kelurahan_telepon}}</font>
 				</b>
 				</center>
 			</td>
 			<td>
-				<div style="width: 200px;  height: auto;"></div>
+				<div style="width: 100px;  height: auto;"></div>
 			</td>
 		</tr>
 	</table>
@@ -57,7 +57,7 @@
 			<td height="20"></td>
 		</tr>
 	</table>
-	<p style= "text-indent:45px;"> Pada hari ini, 
+	<p style= "margin-left:45px;"> Pada hari ini, 
 	<?php
 	$day = date("l"); 
 	$hari = null;
@@ -88,7 +88,7 @@
 		$date = date('d-m');
 		echo $date . '-' . $year;
 	?> telah dilaksanakan musyawarah. </p>
-	<table>
+	<table style= "margin-left:95px;">
 		<tr>
 			<td>Provinsi</td>
 			<td>:</td> 
@@ -102,44 +102,83 @@
 		<tr>
 			<td>Kecamatan</td>
 			<td>:</td> 
-			<td>{{$kelurahan->kecamatan_nama}}</td>
+			<td>{{ucwords($kelurahan->kecamatan_nama)}}</td>
 		</tr>
 		<tr>
 			<td>Kelurahan</td>
 			<td>:</td> 
-			<td>{{$kelurahan->kelurahan_nama}}</td>
+			<td>{{ucwords($kelurahan->kelurahan_nama)}}</td>
 		</tr>
 		<tr>
 		<td height ="20"></td>
 	</table>
-	<p style= "text-indent:45px;"> Berdasarkan hasil kegiatan tersebut, bahwa pada wilayah kami telah disepakati <BR>
+	<p style= "text-indent:45px; margin-left:45px;"> Berdasarkan hasil kegiatan tersebut, bahwa pada wilayah kami telah disepakati <BR>
 	hasil pelaksanaan musyawarah Desa/Kelurahan sebagai berikut: </p>
-	<table>
+	@php
+		$data_a = 0;
+		$data_b = 0;
+		$data_c = 0;
+		$data_d = 0;
+		$total_data = 0;
+		$data_baru = 0;
+	@endphp
+	@foreach($data as $dt)
+		@if($dt->penduduk_status == 6 || $dt->penduduk_status == 4)
+			@php
+				$data_a += 1;
+				$total_data += 1;
+			@endphp
+		@endif
+		@if($dt->penduduk_status == 3)
+			@php
+				$data_b += 1;
+				$total_data += 1;
+			@endphp
+		@endif
+		@if($dt->penduduk_status == 1 || $dt->penduduk_status == 2)
+			@php
+				$data_c += 1;
+				$total_data += 1;
+			@endphp
+		@endif
+		@if($dt->penduduk_status == 8)
+			@php
+				$data_d += 1;
+				$total_data += 1;
+			@endphp
+		@endif
+		@if($dt->penduduk_status == 0)
+			@php
+				$data_baru += 1;
+			@endphp
+		@endif
+	@endforeach
+	<table style= "margin-left:95px;">
 		<tr>
-			<td> 1. Keberadaan dan Status Data Prelist </td>
+			<td> <b>1. Keberadaan dan Status Data Prelist</b> </td>
 		</tr>
 		<tr>
 			<td> a. Jumlah Rumah Tangga Tidak Ditemukan </td>
 			<td> : </td>
-			<td> [Count penduduk_status = '6' and '4'] </td>
+			<td> <?php echo $data_a; ?> </td>
 			<td> Rumah Tangga </td>
 		</tr>
 		<tr>
 			<td> b. Jumlah Rumah Tangga Mampu </td>
 			<td> : </td>
-			<td> [Count penduduk_status = '3'] </td>	
+			<td> <?php echo $data_b; ?> </td>	
 			<td> Rumah Tangga </td>
 		</tr>
 		<tr>
 			<td> c. Jumlah Rumah Tangga Pindah </td>			
 			<td> : </td> 
-			<td> [Count penduduk_status = '1' and '2'] </td>
+			<td> <?php echo $data_c; ?> </td>
 			<td> Rumah Tangga </td>
 		</tr>
 		<tr>
 			<td> d. Jumlah Rumah Tangga Diperbaiki </td>		
 			<td> : </td> 
-			<td> [Count penduduk_status = '8'] </td> 
+			<td> <?php echo $data_d; ?> </td> 
 			<td> Rumah Tangga </td>
 		</tr>
 		<tr>
@@ -148,16 +187,16 @@
 		<tr>
 			<td><b> Total Rumah Tangga Prelist </b></td>
 			<td><b> : </b></td>
-			<td><b> [Total Count] </b></td>
+			<td><b> <?php echo $total_data; ?> </b></td>
 			<td><b> Rumah Tangga </b></td>
 		</tr>
 		<tr>
 			<td height = "20" ></td>
 		</tr>
 		<tr>
-			<td>2. Jumlah Rumah Tangga Usulan Baru</td>
+			<td><b>2. Jumlah Rumah Tangga Usulan Baru</b></td>
 			<td>:</td> 
-			<td>[Count penduduk_status = '0']</td> 
+			<td><?php echo $data_baru; ?></td> 
 			<td>Rumah Tangga</td>
 		</tr>
 		<tr>
@@ -171,8 +210,11 @@
 		<table align='center'>
 			<tr>
 				<td>
+				<div style="width: 75px;  height: auto;"></div>
+				</td>
+				<td>
 				<center>
-				LURAH [kelurahan_nama]
+				LURAH {{strtoupper($kelurahan->kelurahan_nama)}}
 				</center>
 				</td>
 				<td>
@@ -186,10 +228,17 @@
 				</center>
 				</td>
 				<td>
-				<div style="width: 200px;  height: auto;"></div>
+				<div style="width: 75px;  height: auto;"></div>
 				</td>
 			</tr>
 			<tr>
+				<td>
+				<br>
+				<br>
+				<br>
+				<br>
+				<div style="width: 50px;  height: auto;"></div>
+				</td>
 				<td>
 				<br>
 				<br>
@@ -225,7 +274,7 @@
 
 		
 		(.....................)										(.......................) -->
-		<br><br><br><br><br><br><br><br><br>
+		<br><br><br><br><br>
  	<center>
 		<h4>Laporan Prelist Akhir Musyarah Kelurahan</h4>
 	</center>

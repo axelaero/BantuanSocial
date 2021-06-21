@@ -59,8 +59,10 @@ class BAController extends Controller
             ]);
         }
 
+        $ba_id = BeritaAcara::latest('created_at')
+        ->where('kelurahan_id', $kelurahan_id)
+        ->value('ba_id');
         foreach($data as $dt){
-            $ba_id = BeritaAcara::latest('created_at')->value('ba_id');
             $relasi_id = $ba_id . $dt->penduduk_id;
             RelasiPBA::create([
                 'relasi_id' => $relasi_id,
@@ -70,8 +72,10 @@ class BAController extends Controller
                 'cek_mentri',
             ]);
         }
+        // $this->printPDF($ba_id);
 
-        return redirect()->route('pendudukreport');
+        return view('dinas.ba_printview')
+        ->with('ba_id', $ba_id);
     }
 
     public function UpdateView(Request $request, $ba_id){
@@ -145,16 +149,22 @@ class BAController extends Controller
         return redirect()->route('dinasreport');
     }
 
-    public function printPDF(Request $request){
-        // $ba_id = $request->ba_id;
+    // public function printview(){
+    //     return view('dinas.printview');
+    // }
 
-        $kelurahan_id = 2;
+    public function printPDF(Request $request){
+        $ba_id = $request->ba_id;
+        // $ba_id = BeritaAcara::latest()->value('ba_id');
+        $kelurahan_id = BeritaAcara::where('ba_id',$ba_id)->distinct('kelurahan_id')->pluck('kelurahan_id');
         $data = DB::table('penduduk')
         ->leftjoin('penduduk_status','penduduk.penduduk_status','=','penduduk_status.id')
+        ->leftjoin('relasi_penduduk_ba', 'penduduk.penduduk_id', '=', 'relasi_penduduk_ba.penduduk_id')
         // ->leftjoin('approved_status','penduduk.approved_status','=','approved_status.id')
-        ->where('kelurahan_id',$kelurahan_id)
-        ->where('periode', 'none')
+        ->where('ba_id',$ba_id)
+        // ->where('periode', 'none')
         ->get();
+        // dd($data);
         foreach($data as $dt){
             $dt->approved_deskripsi = ApprovedStatus::where('id', $dt->approved_status)->value('deskripsi');
         }
@@ -170,18 +180,16 @@ class BAController extends Controller
             'data'=>$data,
             'kelurahan'=>$kelurahan,
         ]);
-        $pdf->getDomPDF()->setHttpContext(
-            stream_context_create([
-                'ssl' => [
-                    'allow_self_signed'=> TRUE,
-                    'verify_peer' => FALSE,
-                    'verify_peer_name' => FALSE,
-                ]
-            ])
-        );
+        // $pdf->getDomPDF()->setHttpContext(
+        //     stream_context_create([
+        //         'ssl' => [
+        //             'allow_self_signed'=> TRUE,
+        //             'verify_peer' => FALSE,
+        //             'verify_peer_name' => FALSE,
+        //         ]
+        //     ])
+        // );
     	return $pdf->download('bansos.pdf');
 
-        return view('dinas.ba_print')
-        ->with('data',$data);
     }
 }
