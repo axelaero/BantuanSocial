@@ -53,7 +53,7 @@ class DinasController extends Controller
             if($id_bdt){
                 Penduduk::where('penduduk_id', $id)
                 ->update([
-                    'id_bdt' => $id_bdt,
+                    'penduduk_id_bdt' => $id_bdt,
                 ]);
             }      
         }
@@ -61,12 +61,12 @@ class DinasController extends Controller
         if($approved_ids){
             foreach($approved_ids as $ai){
                 Penduduk::where('penduduk_id', $ai)
-                ->where('id_bdt', "!=", null)
+                ->where('penduduk_id_bdt', "!=", null)
                 ->update([
                     'approved_status' => 3,
                 ]);
                 RelasiPBA::where('penduduk_id', $ai)
-                ->where('id_bdt', "!=", null)
+                ->where('penduduk_id_bdt', "!=", null)
                 ->update([
                     'cek_mentri' => 1,
                 ]);
@@ -75,12 +75,12 @@ class DinasController extends Controller
         if($denied_ids){
             foreach($denied_ids as $di){
                 Penduduk::where('penduduk_id', $di)
-                ->where('id_bdt', "!=", null)
+                ->where('penduduk_id_bdt', "!=", null)
                 ->update([
                     'approved_status' => 7,
                 ]);
                 RelasiPBA::where('penduduk_id', $di)
-                ->where('id_bdt', "!=", null)
+                ->where('penduduk_id_bdt', "!=", null)
                 ->update([
                     'cek_mentri' => 1,
                 ]);
@@ -93,7 +93,7 @@ class DinasController extends Controller
             if($data){
                 Penduduk::where('penduduk_id', $id)
                 ->where('approved_status', 7)
-                ->where('id_bdt', "!=", null)
+                ->where('penduduk_id_bdt', "!=", null)
                 ->update([
                     'penduduk_deskripsi' => $data,
                 ]);

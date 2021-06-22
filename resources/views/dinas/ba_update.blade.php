@@ -15,7 +15,11 @@
                 <tr>
                     <td class="text-center border px-8 py-2">Index</td>
                     <td class="text-center border px-8 py-2">NIK</td>
+                    <td class="text-center border px-8 py-2">ID BDT</td>
                     <td class="text-center border px-10 py-2">Nama</td>
+                    <td class="text-center border px-10 py-2">Alamat</td>
+                    <td class="text-center border px-10 py-2">RT</td>
+                    <td class="text-center border px-10 py-2">RW</td>
                     <td class="text-center border px-10 py-2">Deskripsi</td>
                     <td class="text-center border px-10 py-2">status</td>
                     <td class="text-center border px-10 py-2">approved</td>
@@ -26,7 +30,15 @@
                 <tr>
                     <td class="text-center border px-8 py-2">{{$loop->iteration}}</td>
                     <td class="text-center border px-8 py-2">{{$dt->penduduk_nik}}</td>
+                    @if($dt->penduduk_id_bdt == null)
+                        <td class="text-center border px-8 py-2">Belum Ada</td>
+                    @else
+                        <td class="text-center border px-8 py-2">{{$dt->penduduk_id_bdt}}</td>
+                    @endif
                     <td class="text-center border px-10 py-2">{{$dt->penduduk_nama}}</td>   
+                    <td class="text-center border px-10 py-2">{{$dt->penduduk_alamat}}</td>  
+                    <td class="text-center border px-10 py-2">{{$dt->rt}}</td>  
+                    <td class="text-center border px-10 py-2">{{$dt->rw}}</td>  
                     <td class="text-center border px-8 py-2">{{$dt->penduduk_deskripsi}}</td>
                     <td class="text-center border px-10 py-2">{{$dt->status_deskripsi}}</td>
                     <td class="text-center border px-10 py-2">

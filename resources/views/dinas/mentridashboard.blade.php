@@ -15,7 +15,7 @@
                 <tr>
                     <td class="text-center border px-8 py-2">Index</td>
                     <td class="text-center border px-8 py-2">NIK</td>
-                    <td class="text-center border px-8 py-2">BDT</td>
+                    <td class="text-center border px-8 py-2">ID BDT</td>
                     <td class="text-center border px-10 py-2">Nama</td>
                     <td class="text-center border px-10 py-2">Deskripsi</td>
                     <td class="text-center border px-10 py-2">status</td>
