@@ -9,6 +9,12 @@
     <br> -->
     <div class="flex justify-center">
         <div class="w-4/12 bg-white p-6 rounded-lg">
+            @if($msg != 'none')
+                <div class="bg-red-500 p-4 rounded-lg mb-6 text-white text-center">
+                    {{ $msg }}
+                </div>
+
+            @endif
             <form action="{{ route('pendudukcreate') }}" method="post">
             @csrf
                 <div class="mb-4 justify-center">

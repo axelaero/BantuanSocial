@@ -68,9 +68,10 @@ class KelurahanController extends Controller
     public function CreateView(Request $request){
 
         $data = DB::table('periode')->latest('created_at')->first();
-
+        $msg = 'none';
         return view('kelurahan.penduduk_create')
-        ->with('data',$data);
+        ->with('data',$data)
+        ->with('msg', $msg);
     }
 
     public function Create(Request $request){
@@ -92,17 +93,27 @@ class KelurahanController extends Controller
         $nik_len = strlen($request->NIK);
         $kk_len = strlen($request->KK);
 
-        //NIK DAN KK HARUS BERISI 16 DIGIT NANTINYA
-        // if($nik_len != 16 || $kk_len != 16){
-        //     return false;
-        // }
+        // NIK DAN KK HARUS BERISI 16 DIGIT NANTINYA
+        if($nik_len != 16 || $kk_len != 16){
+            $data = DB::table('periode')->latest('created_at')->first();
+            $msg = 'Panjang NIK dan KK tidak sesuai! (16 digit)';
+            return view('kelurahan.penduduk_create')
+            ->with('data',$data)
+            ->with('msg', $msg);
+            // return false;
+        }
 
         //Validasi nik dan nama
         $val_nik_nama = Penduduk::where("penduduk_nik", $request->NIK)
             ->where('penduduk_nama', '!=',$request->nama)
             ->first();              //cari nik sama dengan nama yang berbeda
         if($val_nik_nama){
-            return "ERROR, nama yang telah dicantumkan berbeda dengan data NIK sebelumnya!";
+            $data = DB::table('periode')->latest('created_at')->first();
+            $msg = 'Nama yang dicantumkan berbeda dengan NIK yang terdaftar!';
+            return view('kelurahan.penduduk_create')
+            ->with('data',$data)
+            ->with('msg', $msg);
+            // return "ERROR, nama yang telah dicantumkan berbeda dengan data NIK sebelumnya!";
             //response error
         }
         
@@ -171,7 +182,6 @@ class KelurahanController extends Controller
                 'rw' => $request->rw,
             ]);
         }
-
 
         return redirect()->route('pendudukdashboard');
     }
