@@ -206,8 +206,7 @@ class KelurahanController extends Controller
         return redirect()->route('pendudukdashboard');
     }
 
-    public function Delete(Request $request){
-        $penduduk_id = $request->penduduk_id;
+    public function Delete($penduduk_id){
 
         Penduduk::where('penduduk_id',$penduduk_id)->delete();
 

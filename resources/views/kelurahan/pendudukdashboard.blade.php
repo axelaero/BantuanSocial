@@ -18,6 +18,7 @@
                     <td class="text-center border px-8 py-2">Alamat</td>
                     <td class="text-center border px-10 py-2">status</td>
                     <td class="text-center border px-10 py-2">Deskripsi</td>
+                    <td class="text-center border px-10 py-2">Delete</td>
                     <!-- <td class="text-center border px-10 py-2">approved</td> -->
                     <!-- <td class="text-center border px-10 py-2">periode</td> -->
                 </tr>
@@ -59,6 +60,9 @@
                     @endif
                     
                     <td class="text-center border px-8 py-2">{{$dt->penduduk_deskripsi}}</td>
+                    <td class="text-center border px-2 py-2">
+                    <a href='/pendudukdelete/{{$dt->penduduk_id}}' class='btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline bg-red-700 hover:bg-red-900 text-white font-normal py-0.5 px-4 mr-1 rounded' onclick="return confirm('Are you sure?')">X</a>
+                    </td>
                     <!-- @if($dt->approved_deskripsi)
                         <td class="text-center border px-10 py-2">{{$dt->approved_deskripsi}}</td>
                     @else

@@ -46,7 +46,7 @@ Route::get('/pendudukcreate',[KelurahanController::class, 'CreateView'])->name('
 Route::post('/pendudukcreate',[KelurahanController::class, 'Create'])->name('pendudukcreate');
 Route::get('/pendudukupdate/{id}',[KelurahanController::class, 'UpdateView'])->name('pendudukupdateview');
 Route::get('/pendudukupdate',[KelurahanController::class, 'Update'])->name('pendudukupdate');
-Route::get('/pendudukdelete',[KelurahanController::class, 'Delete'])->name('pendudukdelete');
+Route::get('/pendudukdelete/{id}',[KelurahanController::class, 'Delete'])->name('pendudukdelete');
 
 //BA
 Route::post('/ba_create',[BAController::class, 'Create'])->name('ba_create');
