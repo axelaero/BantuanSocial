@@ -73,7 +73,7 @@
 	if($day == 'Monday'){
 		$hari = 'Senin';
 	}
-	if($day == 'Teusday'){
+	if($day == 'Tuesday'){
 		$hari = 'Selasa';
 	}
 	if($day == 'Wednesday'){
@@ -284,7 +284,7 @@
 		(.....................)										(.......................) -->
 		<br><br><br><br><br>
  	<center>
-		<h4>Laporan Prelist Akhir Musyarah Kelurahan</h4>
+		<h4>Laporan Prelist Akhir Musyawarah Kelurahan</h4>
 	</center>
 	<table class='table table-bordered'>
 		<thead>

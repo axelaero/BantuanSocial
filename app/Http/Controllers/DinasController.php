@@ -41,16 +41,32 @@ class DinasController extends Controller
 
     public function MentriUpdate(Request $request){
         
+        $bdt_s = $request->bdt;
         $approved_ids = $request->penduduk_id_approved;
         $denied_ids = $request->penduduk_id_rejected;
         $deskripsi = $request->deskripsi;
+
+        foreach($bdt_s as $bdt){
+            
+            $id = $bdt["penduduk_id"];
+            $id_bdt = $bdt["data"];
+            if($id_bdt){
+                Penduduk::where('penduduk_id', $id)
+                ->update([
+                    'id_bdt' => $id_bdt,
+                ]);
+            }      
+        }
+
         if($approved_ids){
             foreach($approved_ids as $ai){
                 Penduduk::where('penduduk_id', $ai)
+                ->where('id_bdt', "!=", null)
                 ->update([
                     'approved_status' => 3,
                 ]);
                 RelasiPBA::where('penduduk_id', $ai)
+                ->where('id_bdt', "!=", null)
                 ->update([
                     'cek_mentri' => 1,
                 ]);
@@ -59,10 +75,12 @@ class DinasController extends Controller
         if($denied_ids){
             foreach($denied_ids as $di){
                 Penduduk::where('penduduk_id', $di)
+                ->where('id_bdt', "!=", null)
                 ->update([
                     'approved_status' => 7,
                 ]);
                 RelasiPBA::where('penduduk_id', $di)
+                ->where('id_bdt', "!=", null)
                 ->update([
                     'cek_mentri' => 1,
                 ]);
@@ -75,6 +93,7 @@ class DinasController extends Controller
             if($data){
                 Penduduk::where('penduduk_id', $id)
                 ->where('approved_status', 7)
+                ->where('id_bdt', "!=", null)
                 ->update([
                     'penduduk_deskripsi' => $data,
                 ]);
