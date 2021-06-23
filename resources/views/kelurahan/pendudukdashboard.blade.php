@@ -75,7 +75,11 @@
              </table>
         </div>
     </div>
-    
+    @if($button_count == 0)
+        <div class="flex justify-center" style="margin-top:25px">
+            No Data
+        </div>
+    @endif
     @if($button_count == $button_active & $button_count != 0 & $val_checker_status == 0)
         <form action="{{ route('ba_create') }}" method="post">
             @csrf
@@ -86,9 +90,6 @@
             </div>
         </form>
     @else
-        <div class="flex justify-center" style="margin-top:25px">
-            No Data
-        </div>
         <div class="flex justify-center" style="margin-top:25px">
             <button type="" class="bg-gray-500 text-white px-4 py-3 rounded font-medium w-full" style="width:300px">
             Tidak Bisa Buat Berita Acara</button>
