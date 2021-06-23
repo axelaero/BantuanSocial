@@ -65,11 +65,13 @@ class DinasController extends Controller
                 ->update([
                     'approved_status' => 3,
                 ]);
-                RelasiPBA::where('penduduk_id', $ai)
-                ->where('penduduk_id_bdt', "!=", null)
-                ->update([
-                    'cek_mentri' => 1,
-                ]);
+                $exist = Penduduk::where('penduduk_id', $ai)->where('penduduk_id_bdt', "!=", null)->where('approved_status',3)->first();
+                if($exist){
+                    RelasiPBA::where('penduduk_id', $ai)
+                    ->update([
+                        'cek_mentri' => 1,
+                    ]);
+                }
             }
         }
         if($denied_ids){
@@ -79,11 +81,13 @@ class DinasController extends Controller
                 ->update([
                     'approved_status' => 7,
                 ]);
-                RelasiPBA::where('penduduk_id', $di)
-                ->where('penduduk_id_bdt', "!=", null)
-                ->update([
-                    'cek_mentri' => 1,
-                ]);
+                $exist = Penduduk::where('penduduk_id', $ai)->where('penduduk_id_bdt', "!=", null)->where('approved_status',7)->first();
+                if($exist){
+                    RelasiPBA::where('penduduk_id', $di)
+                    ->update([
+                        'cek_mentri' => 1,
+                    ]);
+                }
             }
         }
         foreach($deskripsi as $des){

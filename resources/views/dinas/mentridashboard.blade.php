@@ -33,10 +33,17 @@
                 <tr>
                     <td class="text-center border px-8 py-2">{{$loop->iteration}}</td>
                     <td class="text-center border px-8 py-2">{{$dt->penduduk_nik}}</td>
-                    <td class="text-center border px-10 py-2">
-                        <input type="hidden" name="bdt[{{$loop->iteration}}][penduduk_id]" value="{{$dt->penduduk_id}}">
-                        <input type="text" name="bdt[{{$loop->iteration}}][data]">
-                    </td>
+                    @if($dt->penduduk_id_bdt != null)
+                        <td class="text-center border px-10 py-2">
+                            <input type="hidden" name="bdt[{{$loop->iteration}}][penduduk_id]" value="{{$dt->penduduk_id}}">
+                            <input type="text" name="bdt[{{$loop->iteration}}][data]" value="{{$dt->penduduk_id_bdt}}">
+                        </td>
+                    @else
+                        <td class="text-center border px-10 py-2">
+                            <input type="hidden" name="bdt[{{$loop->iteration}}][penduduk_id]" value="{{$dt->penduduk_id}}">
+                            <input type="text" name="bdt[{{$loop->iteration}}][data]">
+                        </td>
+                    @endif
                     <td class="text-center border px-10 py-2">{{$dt->penduduk_nama}}</td>   
                     <td class="text-center border px-8 py-2">{{$dt->penduduk_deskripsi}}</td>
                     <td class="text-center border px-10 py-2">{{$dt->deskripsi}}</td>
