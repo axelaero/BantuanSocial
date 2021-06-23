@@ -189,7 +189,12 @@ class BAController extends Controller
         //         ]
         //     ])
         // );
-    	return $pdf->download('bansos.pdf');
+
+        $kelurahan_nama = Kelurahan::where('kelurahan_id', $kelurahan_id)->value('kelurahan_nama');
+        $kelurahan_nama = ucwords($kelurahan_nama);
+        $part = BeritaAcara::where('ba_id',$ba_id)->value('part');
+        $file_name = "Bansos_" . $kelurahan_nama . "_Part-" . $part . "_tgl(" . date('d-m-y') . ").pdf";
+    	return $pdf->download($file_name);
 
     }
 }
