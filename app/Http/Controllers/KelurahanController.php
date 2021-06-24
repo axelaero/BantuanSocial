@@ -32,15 +32,73 @@ class KelurahanController extends Controller
 
     public function PendudukReport(Request $request){
 
+        // $kelurahan = auth()->user()->username;
+        // $kelurahan_id = User::where('username', $kelurahan)->value('kelurahan_id');
+        // $iteration = DB::table('penduduk')
+        // ->join('penduduk_status','penduduk.penduduk_status','=','penduduk_status.id')
+        // // ->leftjoin('approved_status','penduduk.approved_status','=','approved_status.id')
+        // ->where('kelurahan_id',$kelurahan_id)
+        // ->where('periode','!=', 'none')
+        // ->distinct('penduduk_nik')
+        // ->pluck('penduduk_nik');
+        // $data = array();
+        // foreach($iteration as $i){
+        //     $temp = DB::table('penduduk')
+        //     ->join('penduduk_status','penduduk.penduduk_status','=','penduduk_status.id')
+        //     // ->leftjoin('approved_status','penduduk.approved_status','=','approved_status.id')
+        //     ->where('kelurahan_id',$kelurahan_id)
+        //     ->where('periode','!=', 'none')
+        //     ->where('penduduk_nik', $i)
+        //     ->latest('penduduk.created_at')
+        //     ->first();
+        //     array_push($data, $temp);
+        //     // dd($temp);
+        // }
+        // // dd($data);
+        // foreach($data as $dt){
+        //     $dt->approved_deskripsi = ApprovedStatus::where('id', $dt->approved_status)->value('deskripsi');
+        // }
+        // // dd($data);
+        // return view('kelurahan.penduduk_report')
+        // ->with('data',$data)
+        // ->with('kelurahan_id', $kelurahan_id);
+        $jumlah[1] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('penduduk_status', 0)->count();
+        $jumlah[2] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('approved_status', 2)->count();
+        $jumlah[3] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('approved_status', 6)->count();
+        $jumlah[4] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('approved_status', 3)->count();
+        $jumlah[5] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('approved_status', 7)->count();
+        $jumlah[6] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('penduduk_status', 8)->count();
+        $bandung = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('penduduk_status', 1)->count();
+        $luar_bandung = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('penduduk_status', 2)->count();
+        $jumlah[7] = $bandung + $luar_bandung;
+        $jumlah[8] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('penduduk_status', 6)->count();
+        // dd($jumlah);
+        return view('kelurahan.penduduk_report')->with('jumlah', $jumlah);
+    }
+
+    public function PendudukRekap(Request $request){
         $kelurahan = auth()->user()->username;
         $kelurahan_id = User::where('username', $kelurahan)->value('kelurahan_id');
         $iteration = DB::table('penduduk')
         ->join('penduduk_status','penduduk.penduduk_status','=','penduduk_status.id')
         // ->leftjoin('approved_status','penduduk.approved_status','=','approved_status.id')
         ->where('kelurahan_id',$kelurahan_id)
-        ->where('periode','!=', 'none')
-        ->distinct('penduduk_nik')
-        ->pluck('penduduk_nik');
+        ->where('periode','!=', 'none');
+
+        if($request->filter == 1){
+
+            if($request->stats == 1){
+                $iteration = $iteration->where('penduduk_status', 1)->orwhere('penduduk_status', 2);
+            }else{
+                $iteration = $iteration->where('penduduk_status', $request->stats);
+            }
+        }
+
+        if($request->filter == 2){
+            $iteration = $iteration->where('approved_status', $request->stats);
+        }
+
+        $iteration =  $iteration->distinct('penduduk_nik')->pluck('penduduk_nik');
         $data = array();
         foreach($iteration as $i){
             $temp = DB::table('penduduk')
@@ -58,11 +116,13 @@ class KelurahanController extends Controller
         foreach($data as $dt){
             $dt->approved_deskripsi = ApprovedStatus::where('id', $dt->approved_status)->value('deskripsi');
         }
+        
+
+
         // dd($data);
-        return view('kelurahan.penduduk_report')
+        return view('kelurahan.penduduk_rekap')
         ->with('data',$data)
         ->with('kelurahan_id', $kelurahan_id);
-    
     }
 
     public function CreateView(Request $request){

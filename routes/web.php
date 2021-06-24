@@ -42,6 +42,7 @@ Route::get('/admin/dashboard',[AdminController::class, 'AdminDashboard'])->name(
 //KELURAHAN
 Route::get('/penduduk/dashboard',[KelurahanController::class, 'PendudukDashboard'])->name('pendudukdashboard');
 Route::get('/penduduk/report',[KelurahanController::class, 'PendudukReport'])->name('pendudukreport');
+Route::get('/penduduk/rekap',[KelurahanController::class, 'PendudukRekap'])->name('pendudukrekap');
 Route::get('/pendudukcreate',[KelurahanController::class, 'CreateView'])->name('pendudukcreateview');
 Route::post('/pendudukcreate',[KelurahanController::class, 'Create'])->name('pendudukcreate');
 Route::get('/pendudukupdate/{id}',[KelurahanController::class, 'UpdateView'])->name('pendudukupdateview');
