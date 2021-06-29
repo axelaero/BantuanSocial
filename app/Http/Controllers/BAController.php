@@ -84,6 +84,10 @@ class BAController extends Controller
         ->join('penduduk','relasi_penduduk_ba.penduduk_id','=','penduduk.penduduk_id');
         $data = $data->where('ba_id', $ba_id)
         ->get();
+        $kelurahan_id = BeritaAcara::latest('created_at')->where('ba_id',$ba_id)->value('kelurahan_id');
+        $nama = Kelurahan::where('kelurahan_id',$kelurahan_id)->value('kelurahan_nama');
+        $periode = BeritaAcara::latest('created_at')->where('ba_id',$ba_id)->value('periode');
+        $part = BeritaAcara::latest('created_at')->where('ba_id',$ba_id)->value('part');
 
         foreach($data as $dt){
             $dt->status_deskripsi = DB::table('penduduk_status')->where('id',$dt->penduduk_status)->value('deskripsi');
@@ -92,7 +96,10 @@ class BAController extends Controller
         // dd($data);
         return view('dinas.ba_update')
         ->with('data',$data)
-        ->with('ba_id', $ba_id);
+        ->with('ba_id', $ba_id)
+        ->with('nama', $nama)
+        ->with('periode', $periode)
+        ->with('part', $part);
     }
 
     public function Update(Request $request){

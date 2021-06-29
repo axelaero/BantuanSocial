@@ -254,4 +254,17 @@ class KelurahanController extends Controller
 
         return redirect()->route('pendudukdashboard');
     }
+
+    public function RekapHome(Request $request){
+        
+        $data = Kelurahan::get();
+
+        foreach($data as $dt){
+            $dt->total_keluarga = Penduduk::distinct('penduduk_kk')->where('kelurahan_id', $dt->kelurahan_id)->count();
+        }
+        
+        // dd($data);
+        return view('home_rekap')
+        ->with('data',$data);
+    }
 }

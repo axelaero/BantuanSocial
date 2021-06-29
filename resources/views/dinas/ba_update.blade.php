@@ -3,7 +3,8 @@
 @section('content')
     <div class="flex justify-center" style="margin-top:25px">
         <font size="28">
-            <h1>Berita Acara</h1>
+            <h1>Berita Acara - {{$ba_id}} - {{ucwords($nama)}}</h1>
+            <h5>Periode: {{$periode}} - Part: {{$part}}</h5>
         </font>
     </div>
     <br>
