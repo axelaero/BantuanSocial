@@ -21,7 +21,7 @@
                     <td class="text-center border px-8 py-2">Data Baru</td>
                     <td class="text-center border px-8 py-2">{{$jumlah[1]}} orang</td>
                     <td class='border text-center px-8 py-2'>
-                        <a href='/penduduk/rekap?filter=1&stats=0' class='btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline bg-green-700 hover:bg-green-900 text-white font-normal py-0.5 px-4 mr-1 rounded'>Lihat</a>
+                        <a href='/penduduk/rekap?filter=2&stats=1' class='btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline bg-green-700 hover:bg-green-900 text-white font-normal py-0.5 px-4 mr-1 rounded'>Lihat</a>
                     </td>
                 </tr>
                 <tr>
@@ -78,6 +78,22 @@
                     <td class="text-center border px-8 py-2">{{$jumlah[8]}} orang</td>
                     <td class='border text-center px-8 py-2'>
                         <a href='/penduduk/rekap?filter=1&stats=6' class='btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline bg-green-700 hover:bg-green-900 text-white font-normal py-0.5 px-4 mr-1 rounded'>Lihat</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center border px-8 py-2">9</td>
+                    <td class="text-center border px-8 py-2">Periode Ini</td>
+                    <td class="text-center border px-8 py-2">{{$jumlah[9]}} orang</td>
+                    <td class='border text-center px-8 py-2'>
+                        <a href='/penduduk/rekap?periode=1' class='btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline bg-green-700 hover:bg-green-900 text-white font-normal py-0.5 px-4 mr-1 rounded'>Lihat</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center border px-8 py-2">10</td>
+                    <td class="text-center border px-8 py-2">Seluruh Data</td>
+                    <td class="text-center border px-8 py-2">{{$jumlah[10]}} orang</td>
+                    <td class='border text-center px-8 py-2'>
+                        <a href='/penduduk/rekap' class='btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline bg-green-700 hover:bg-green-900 text-white font-normal py-0.5 px-4 mr-1 rounded'>Lihat</a>
                     </td>
                 </tr>
         </div>

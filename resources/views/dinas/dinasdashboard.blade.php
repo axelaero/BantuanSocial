@@ -33,11 +33,11 @@
                 </tr>
                 @endforeach
              </table>
+        </div>
+    </div>
              @if($count == 0)  
                 <div class="flex justify-center" style="margin-top:25px">
                     No Data
                 </div>
              @endif
-        </div>
-    </div>
 @endsection

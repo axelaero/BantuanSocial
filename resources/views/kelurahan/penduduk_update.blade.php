@@ -28,11 +28,11 @@
                             <a href='/pendudukupdate?penduduk_id={{$penduduk_id}}&penduduk_status_id=4' class='btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline bg-green-700 hover:bg-green-900 text-white font-normal py-0.5 px-4 mr-1 rounded'>meninggal</a>
                     </td>
                 </tr>
-                <tr>
+                <!-- <tr>
                     <td class='border text-center px-8 py-2'>
                             <a href='/pendudukupdate?penduduk_id={{$penduduk_id}}&penduduk_status_id=5' class='btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline bg-green-700 hover:bg-green-900 text-white font-normal py-0.5 px-4 mr-1 rounded'>meninggal, ahli waris</a>
                     </td>
-                </tr>
+                </tr> -->
                 <tr>
                     <td class='border text-center px-8 py-2'>
                             <a href='/pendudukupdate?penduduk_id={{$penduduk_id}}&penduduk_status_id=6' class='btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline bg-green-700 hover:bg-green-900 text-white font-normal py-0.5 px-4 mr-1 rounded'>hilang</a>

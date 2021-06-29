@@ -59,6 +59,7 @@ Route::get('/ba/printpdf', [BAController::class, 'printPDF'])->name('printpdf');
 //DINAS
 Route::get('/dinas/dashboard',[DinasController::class, 'DinasDashboard'])->name('dinasdashboard');
 Route::get('/dinas/report',[DinasController::class, 'DinasReport'])->name('dinasreport');
+Route::get('/dinas/rekap',[DinasController::class, 'PendudukRekap'])->name('dinasrekap');
 Route::get('/mentri/dashboard',[DinasController::class, 'MentriDashboard'])->name('mentridashboard');
 Route::post('/mentri/update',[DinasController::class, 'MentriUpdate'])->name('mentriupdate');
 Route::get('/periode',[DinasController::class, 'PeriodeView'])->name('periode');

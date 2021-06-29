@@ -1,9 +1,10 @@
+
 @extends('layouts.app')
 
 @section('content')
     <div class="flex justify-center" style="margin-top:25px">
         <font size="28">
-            <h1>Rekap Data Penduduk</h1>
+            <h1>Rekap Hasil Musyarah Kelurahan</h1>
         </font>
     </div>
     <br>
@@ -12,14 +13,8 @@
             <table class="shadow-lg bg-white">
                 <tr>
                     <td class="text-center border px-8 py-2">Index</td>
-                    <td class="text-center border px-8 py-2">NIK</td>
-                    <td class="text-center border px-10 py-2">BDT</td>
-                    <td class="text-center border px-10 py-2">Nama</td>
-                    <td class="text-center border px-8 py-2">Alamat</td>
-                    <td class="text-center border px-10 py-2">Periode</td>
-                    <td class="text-center border px-10 py-2">status</td>
-                    <td class="text-center border px-10 py-2">approved</td>
-                    <td class="text-center border px-10 py-2">Deskripsi</td>
+                    <td class="text-center border px-10 py-2">Kelurahan</td>
+                    <td class="text-center border px-10 py-2">Cek</td>
                 </tr>
                 <?php
                     $count = 0;
@@ -30,31 +25,18 @@
                 ?>
                 <tr>
                     <td class="text-center border px-8 py-2">{{$loop->iteration}}</td>
-                    <td class="text-center border px-8 py-2">{{$dt->penduduk_nik}}</td>
-                    @if($dt->penduduk_id_bdt)
-                        <td class="text-center border px-10 py-2">{{$dt->penduduk_id_bdt}}</td>
-                    @else
-                        <td class="text-center border px-10 py-2">Belum Ada</td>
-                    @endif
-                    <td class="text-center border px-10 py-2">{{$dt->penduduk_nama}}</td>
-                    <td class="text-center border px-8 py-2">{{$dt->penduduk_alamat}}</td>
-                    <td class="text-center border px-8 py-2">{{$dt->periode}}</td>  
-                    <td class="text-center border px-8 py-2">{{$dt->deskripsi}}</td> 
-                    @if($dt->approved_deskripsi)
-                        <td class="text-center border px-10 py-2">{{$dt->approved_deskripsi}}</td>
-                    @else
-                        <td class="text-center border px-10 py-2">Belum di cek</td>
-                    @endif
-                    <td class="text-center border px-8 py-2">{{$dt->penduduk_deskripsi}}</td>
+                    <td class="text-center border px-8 py-2">{{ucwords($dt->kelurahan_nama)}}</td>
+                    <td class='border text-center px-8 py-2'>
+                        <a href='/dinas/rekap?kelurahan_id={{$dt->kelurahan_id}}' class='btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline bg-green-700 hover:bg-green-900 text-white font-normal py-0.5 px-4 mr-1 rounded'>Cek</a>
+                    </td>
                 </tr>
                 @endforeach
              </table>
+        </div>
+    </div>
              @if($count == 0)  
                 <div class="flex justify-center" style="margin-top:25px">
                     No Data
                 </div>
              @endif
-        </div>
-    </div>
-
 @endsection

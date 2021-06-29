@@ -77,17 +77,17 @@ class DinasController extends Controller
         if($denied_ids){
             foreach($denied_ids as $di){
                 Penduduk::where('penduduk_id', $di)
-                ->where('penduduk_id_bdt', "!=", null)
+                // ->where('penduduk_id_bdt', "!=", null)
                 ->update([
                     'approved_status' => 7,
                 ]);
-                $exist = Penduduk::where('penduduk_id', $ai)->where('penduduk_id_bdt', "!=", null)->where('approved_status',7)->first();
-                if($exist){
-                    RelasiPBA::where('penduduk_id', $di)
-                    ->update([
-                        'cek_mentri' => 1,
-                    ]);
-                }
+                // $exist = Penduduk::where('penduduk_id', $ai)->where('penduduk_id_bdt', "!=", null)->where('approved_status',7)->first();
+                // if($exist){
+                RelasiPBA::where('penduduk_id', $di)
+                ->update([
+                    'cek_mentri' => 1,
+                ]);
+                // }
             }
         }
         foreach($deskripsi as $des){
@@ -97,7 +97,7 @@ class DinasController extends Controller
             if($data){
                 Penduduk::where('penduduk_id', $id)
                 ->where('approved_status', 7)
-                ->where('penduduk_id_bdt', "!=", null)
+                // ->where('penduduk_id_bdt', "!=", null)
                 ->update([
                     'penduduk_deskripsi' => $data,
                 ]);
@@ -128,19 +128,78 @@ class DinasController extends Controller
 
     public function DinasReport(Request $request){
 
+        // $iteration = DB::table('penduduk')
+        // ->join('penduduk_status','penduduk.penduduk_status','=','penduduk_status.id')
+        // // ->leftjoin('approved_status','penduduk.approved_status','=','approved_status.id')
+        // // ->where('kelurahan_id',$kelurahan_id)
+        // ->where('periode','!=', 'none')
+        // ->distinct('penduduk_nik')
+        // ->pluck('penduduk_nik');
+        // $data = array();
+        // foreach($iteration as $i){
+        //     $temp = DB::table('penduduk')
+        //     ->join('penduduk_status','penduduk.penduduk_status','=','penduduk_status.id')
+        //     // ->leftjoin('approved_status','penduduk.approved_status','=','approved_status.id')
+        //     // ->where('kelurahan_id',$kelurahan_id)
+        //     ->where('periode','!=', 'none')
+        //     ->where('penduduk_nik', $i)
+        //     ->latest('penduduk.created_at')
+        //     ->first();
+        //     array_push($data, $temp);
+        //     // dd($temp);
+        // }
+        // // dd($data);
+        // foreach($data as $dt){
+        //     $dt->approved_deskripsi = ApprovedStatus::where('id', $dt->approved_status)->value('deskripsi');
+        // }
+        // return view('dinas.dinas_report')
+        // ->with('data',$data);
+        $data = Kelurahan::get();
+
+        // foreach($data as $dt){
+        //     $dt->kelurahan_nama = Kelurahan::where('kelurahan_id',$dt->kelurahan_id)->value('kelurahan_nama');
+        // }
+        // dd($data);
+        return view('dinas.dinas_report')
+        ->with('data',$data);
+
+    }
+
+    public function PendudukRekap(Request $request){
+        $kelurahan_id = $request->kelurahan_id;
         $iteration = DB::table('penduduk')
         ->join('penduduk_status','penduduk.penduduk_status','=','penduduk_status.id')
         // ->leftjoin('approved_status','penduduk.approved_status','=','approved_status.id')
-        // ->where('kelurahan_id',$kelurahan_id)
-        ->where('periode','!=', 'none')
-        ->distinct('penduduk_nik')
-        ->pluck('penduduk_nik');
+        ->where('kelurahan_id',$kelurahan_id)
+        ->where('periode','!=', 'none');
+
+        if($request->filter == 1){
+
+            if($request->stats == 1){
+                $iteration = $iteration->where('penduduk_status', 1)->orwhere('penduduk_status', 2);
+            }else{
+                $iteration = $iteration->where('penduduk_status', $request->stats);
+            }
+        }
+
+        if($request->filter == 2){
+            $iteration = $iteration->where('approved_status', $request->stats);
+        }
+
+        $data_periode = Periode::latest('created_at')->first();
+        $data_periode_txt = $data_periode->semester . " - " . $data_periode->year;
+
+        if($request->periode == 1){
+            $iteration = $iteration->where('periode', $data_periode_txt);
+        }
+
+        $iteration =  $iteration->distinct('penduduk_nik')->pluck('penduduk_nik');
         $data = array();
         foreach($iteration as $i){
             $temp = DB::table('penduduk')
             ->join('penduduk_status','penduduk.penduduk_status','=','penduduk_status.id')
             // ->leftjoin('approved_status','penduduk.approved_status','=','approved_status.id')
-            // ->where('kelurahan_id',$kelurahan_id)
+            ->where('kelurahan_id',$kelurahan_id)
             ->where('periode','!=', 'none')
             ->where('penduduk_nik', $i)
             ->latest('penduduk.created_at')
@@ -152,8 +211,12 @@ class DinasController extends Controller
         foreach($data as $dt){
             $dt->approved_deskripsi = ApprovedStatus::where('id', $dt->approved_status)->value('deskripsi');
         }
-        return view('dinas.dinas_report')
-        ->with('data',$data);
-    
+        
+
+
+        // dd($data);
+        return view('kelurahan.penduduk_rekap')
+        ->with('data',$data)
+        ->with('kelurahan_id', $kelurahan_id);
     }
 }
