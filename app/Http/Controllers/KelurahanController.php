@@ -104,7 +104,8 @@ class KelurahanController extends Controller
                     ->where('kelurahan_id',$kelurahan_id)
                     ->where('periode','!=', 'none')
                     ->where('penduduk_nik', $i)
-                    ->latest('penduduk.created_at')
+                    ->latest('penduduk.created_at');
+                    $temp = $temp
                     ->where('penduduk_status', 1)
                     ->orwhere('penduduk_status', 2)
                     ->orwhere('penduduk_status', 3)
@@ -118,7 +119,8 @@ class KelurahanController extends Controller
                     ->where('kelurahan_id',$kelurahan_id)
                     ->where('periode','!=', 'none')
                     ->where('penduduk_nik', $i)
-                    ->latest('penduduk.created_at')
+                    ->latest('penduduk.created_at');
+                    $temp = $temp 
                     ->where('penduduk_status', $request->stats)
                     ->first();
                 }
@@ -131,7 +133,8 @@ class KelurahanController extends Controller
                 ->where('kelurahan_id',$kelurahan_id)
                 ->where('periode','!=', 'none')
                 ->where('penduduk_nik', $i)
-                ->latest('penduduk.created_at')
+                ->latest('penduduk.created_at');
+                $temp = $temp 
                 ->where('approved_status', $request->stats)
                 ->first();
             }
