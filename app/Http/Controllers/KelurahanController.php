@@ -75,8 +75,10 @@ class KelurahanController extends Controller
                 ->orwhere('penduduk_status', 3)
                 ->orwhere('penduduk_status', 4)
                 ->orwhere('penduduk_status', 6);
-            }else{
-                $iteration = $iteration->where('penduduk_status', $request->stats);
+            }
+            
+            if($request->stats == 0){
+                $iteration = $iteration->where('penduduk_status', 0);
             }
         }
 
