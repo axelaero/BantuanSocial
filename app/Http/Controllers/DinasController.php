@@ -110,8 +110,16 @@ class DinasController extends Controller
     public function PeriodeView(Request $request){
         $data_periode = Periode::latest('created_at')->first();
         $data = $data_periode->semester . " - " . $data_periode->year;
+
+        $all_penduduk = Penduduk::count();
+        $all_hub = RelasiPBA::count();
+        $exist = 0;
+        if($all_penduduk == $all_hub){
+            $exist = 1;
+        }
         return view('dinas.periode')
-        ->with('data', $data);
+        ->with('data', $data)
+        ->with('exist', $exist);
     }
 
     public function PeriodeCreate(Request $request){
@@ -285,8 +293,8 @@ class DinasController extends Controller
         }
         
         // dd($data);
-        // return view('dinas.dinas_rekap_status')
-        // ->with('data',$data)
-        // ->with('kelurahan_id', $kelurahan_id);
+        return view('dinas.dinas_rekap_status')
+        ->with('data',$data)
+        ->with('kelurahan_id', $kelurahan_id);
     }
 }

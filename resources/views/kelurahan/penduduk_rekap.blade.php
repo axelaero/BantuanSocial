@@ -56,4 +56,10 @@
                     No Data
                 </div>
              @endif
+             <div class="flex justify-center" style="margin-top:25px">
+                <a href="/penduduk/report">
+                    <button type="" id="btn-print" class="bg-blue-500 text-white px-4 py-3 rounded font-medium w-full" style="width:300px">
+                    Kembali</button>
+                </a>
+            </div>
 @endsection

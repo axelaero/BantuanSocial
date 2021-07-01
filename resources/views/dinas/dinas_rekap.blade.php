@@ -80,6 +80,13 @@
                         <a href='/dinas/rekapstatus?kelurahan_id={{$kelurahan_id}}' class='btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline bg-green-700 hover:bg-green-900 text-white font-normal py-0.5 px-4 mr-1 rounded'>Lihat</a>
                     </td>
                 </tr>
+            </table>
         </div>
+    </div>
+    <div class="flex justify-center" style="margin-top:25px">
+        <a href="/dinas/report">
+            <button type="" id="btn-print" class="bg-blue-500 text-white px-4 py-3 rounded font-medium w-full" style="width:300px">
+            Kembali</button>
+        </a>
     </div>
 @endsection
