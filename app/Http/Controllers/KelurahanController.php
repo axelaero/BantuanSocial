@@ -34,7 +34,7 @@ class KelurahanController extends Controller
     public function PendudukReport(Request $request){
         $kelurahan = auth()->user()->username;
         $kelurahan_id = User::where('username', $kelurahan)->value('kelurahan_id');
-        $jumlah_1 = Penduduk::where('kelurahan_id', $kelurahan_id)->latest('created_at')->distinct('penduduk_nik')->get();
+        $jumlah_1 = Penduduk::where('kelurahan_id', $kelurahan_id)->distinct('penduduk_nik')->latest('created_at')->get();
         $jumlah[1] = 0;
         foreach($jumlah_1 as $j1){
             if($j1->penduduk_status == 0){
