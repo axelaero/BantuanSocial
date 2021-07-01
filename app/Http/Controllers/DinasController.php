@@ -111,12 +111,12 @@ class DinasController extends Controller
         $data_periode = Periode::latest('created_at')->first();
         $data = $data_periode->semester . " - " . $data_periode->year;
 
-        $all_penduduk = Penduduk::count();
-        $all_hub = RelasiPBA::count();
-        $exist = 0;
-        if($all_penduduk == $all_hub){
-            $exist = 1;
+        $exist = 1;
+        $cek_dinas_check = RelasiPBA::where('cek_dinas', 0)->first();
+        if($cek_dinas_check){
+            $exist = 0;
         }
+        
         return view('dinas.periode')
         ->with('data', $data)
         ->with('exist', $exist);
@@ -221,7 +221,7 @@ class DinasController extends Controller
         // }
         $kelurahan_id = $request->kelurahan_id;
         $name = Kelurahan::where('kelurahan_id', $kelurahan_id)->value('kelurahan_nama');
-        $jumlah[1] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('approved_status', 1)->count();
+        $jumlah[1] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('penduduk_status', 0)->count();
         $jumlah[2] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('approved_status', 2)->count();
         $jumlah[3] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('approved_status', 6)->count();
         $jumlah[4] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('approved_status', 3)->count();
@@ -235,7 +235,12 @@ class DinasController extends Controller
         $data = $data_periode->semester . " - " . $data_periode->year;
         $jumlah[9] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('periode', $data)->count();
         $jumlah[10] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->count();
-        $jumlah[11] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('approved_status', 5)->count();
+        $jumlah[11] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)
+        ->where('penduduk_status', 1)
+        ->orwhere('penduduk_status', 2)
+        ->orwhere('penduduk_status', 3)
+        ->orwhere('penduduk_status', 4)
+        ->orwhere('penduduk_status', 6)->count();
         // dd($jumlah);
         return view('dinas.dinas_rekap')->with('jumlah', $jumlah)->with('kelurahan_id', $kelurahan_id)->with('name',$name);
 
@@ -256,7 +261,11 @@ class DinasController extends Controller
         if($request->filter == 1){
 
             if($request->stats == 1){
-                $iteration = $iteration->where('penduduk_status', 1)->orwhere('penduduk_status', 2);
+                $iteration = $iteration->where('penduduk_status', 1)
+                ->orwhere('penduduk_status', 2)
+                ->orwhere('penduduk_status', 3)
+                ->orwhere('penduduk_status', 4)
+                ->orwhere('penduduk_status', 6);
             }else{
                 $iteration = $iteration->where('penduduk_status', $request->stats);
             }

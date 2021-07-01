@@ -34,7 +34,7 @@ class KelurahanController extends Controller
     public function PendudukReport(Request $request){
         $kelurahan = auth()->user()->username;
         $kelurahan_id = User::where('username', $kelurahan)->value('kelurahan_id');
-        $jumlah[1] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('approved_status', 1)->count();
+        $jumlah[1] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('penduduk_status', 0)->count();
         $jumlah[2] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('approved_status', 2)->count();
         $jumlah[3] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('approved_status', 6)->count();
         $jumlah[4] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('approved_status', 3)->count();
@@ -48,7 +48,12 @@ class KelurahanController extends Controller
         $data = $data_periode->semester . " - " . $data_periode->year;
         $jumlah[9] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('periode', $data)->count();
         $jumlah[10] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->count();
-        $jumlah[11] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('approved_status', 5)->count();
+        $jumlah[11] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)
+        ->where('penduduk_status', 1)
+        ->orwhere('penduduk_status', 2)
+        ->orwhere('penduduk_status', 3)
+        ->orwhere('penduduk_status', 4)
+        ->orwhere('penduduk_status', 6)->count();
         // dd($jumlah);
         return view('kelurahan.penduduk_report')->with('jumlah', $jumlah);
     }
@@ -65,7 +70,11 @@ class KelurahanController extends Controller
         if($request->filter == 1){
 
             if($request->stats == 1){
-                $iteration = $iteration->where('penduduk_status', 1)->orwhere('penduduk_status', 2);
+                $iteration = $iteration->where('penduduk_status', 1)
+                ->orwhere('penduduk_status', 2)
+                ->orwhere('penduduk_status', 3)
+                ->orwhere('penduduk_status', 4)
+                ->orwhere('penduduk_status', 6);
             }else{
                 $iteration = $iteration->where('penduduk_status', $request->stats);
             }
