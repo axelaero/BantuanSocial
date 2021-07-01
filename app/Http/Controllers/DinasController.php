@@ -166,6 +166,78 @@ class DinasController extends Controller
     }
 
     public function PendudukRekap(Request $request){
+        // $kelurahan_id = $request->kelurahan_id;
+        // $iteration = DB::table('penduduk')
+        // ->join('penduduk_status','penduduk.penduduk_status','=','penduduk_status.id')
+        // // ->leftjoin('approved_status','penduduk.approved_status','=','approved_status.id')
+        // ->where('kelurahan_id',$kelurahan_id)
+        // ->where('periode','!=', 'none');
+
+        // if($request->filter == 1){
+
+        //     if($request->stats == 1){
+        //         $iteration = $iteration->where('penduduk_status', 1)->orwhere('penduduk_status', 2);
+        //     }else{
+        //         $iteration = $iteration->where('penduduk_status', $request->stats);
+        //     }
+        // }
+
+        // if($request->filter == 2){
+        //     $iteration = $iteration->where('approved_status', $request->stats);
+        // }
+
+        // $data_periode = Periode::latest('created_at')->first();
+        // $data_periode_txt = $data_periode->semester . " - " . $data_periode->year;
+
+        // if($request->periode == 1){
+        //     $iteration = $iteration->where('periode', $data_periode_txt);
+        // }
+
+        // $iteration =  $iteration->distinct('penduduk_nik')->pluck('penduduk_nik');
+        // $data = array();
+        // foreach($iteration as $i){
+        //     $temp = DB::table('penduduk')
+        //     ->join('penduduk_status','penduduk.penduduk_status','=','penduduk_status.id')
+        //     // ->leftjoin('approved_status','penduduk.approved_status','=','approved_status.id')
+        //     ->where('kelurahan_id',$kelurahan_id)
+        //     ->where('periode','!=', 'none')
+        //     ->where('penduduk_nik', $i)
+        //     ->latest('penduduk.created_at')
+        //     ->first();
+        //     array_push($data, $temp);
+        //     // dd($temp);
+        // }
+        // // dd($data);
+        // foreach($data as $dt){
+        //     $dt->approved_deskripsi = ApprovedStatus::where('id', $dt->approved_status)->value('deskripsi');
+        // }
+        $kelurahan_id = $request->kelurahan_id;
+        $name = Kelurahan::where('kelurahan_id', $kelurahan_id)->value('kelurahan_nama');
+        $jumlah[1] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('approved_status', 1)->count();
+        $jumlah[2] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('approved_status', 2)->count();
+        $jumlah[3] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('approved_status', 6)->count();
+        $jumlah[4] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('approved_status', 3)->count();
+        $jumlah[5] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('approved_status', 7)->count();
+        $jumlah[6] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('penduduk_status', 8)->count();
+        $bandung = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('penduduk_status', 1)->count();
+        $luar_bandung = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('penduduk_status', 2)->count();
+        $jumlah[7] = $bandung + $luar_bandung;
+        $jumlah[8] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('penduduk_status', 6)->count();
+        $data_periode = Periode::latest('created_at')->first();
+        $data = $data_periode->semester . " - " . $data_periode->year;
+        $jumlah[9] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('periode', $data)->count();
+        $jumlah[10] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->count();
+        $jumlah[11] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('approved_status', 5)->count();
+        // dd($jumlah);
+        return view('dinas.dinas_rekap')->with('jumlah', $jumlah)->with('kelurahan_id', $kelurahan_id)->with('name',$name);
+
+        // dd($data);
+        // return view('dinas.dinas_rekap')
+        // ->with('data',$data)
+        // ->with('kelurahan_id', $kelurahan_id);
+    }
+
+    public function PendudukRekapStatus(Request $request){
         $kelurahan_id = $request->kelurahan_id;
         $iteration = DB::table('penduduk')
         ->join('penduduk_status','penduduk.penduduk_status','=','penduduk_status.id')
@@ -212,11 +284,9 @@ class DinasController extends Controller
             $dt->approved_deskripsi = ApprovedStatus::where('id', $dt->approved_status)->value('deskripsi');
         }
         
-
-
         // dd($data);
-        return view('kelurahan.penduduk_rekap')
-        ->with('data',$data)
-        ->with('kelurahan_id', $kelurahan_id);
+        // return view('dinas.dinas_rekap_status')
+        // ->with('data',$data)
+        // ->with('kelurahan_id', $kelurahan_id);
     }
 }

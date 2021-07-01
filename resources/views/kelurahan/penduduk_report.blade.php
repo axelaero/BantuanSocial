@@ -26,6 +26,14 @@
                 </tr>
                 <tr>
                     <td class="text-center border px-8 py-2">2</td>
+                    <td class="text-center border px-8 py-2">Data Perbaikan</td>
+                    <td class="text-center border px-8 py-2">{{$jumlah[11]}} orang</td>
+                    <td class='border text-center px-8 py-2'>
+                        <a href='/penduduk/rekap?filter=2&stats=5' class='btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline bg-green-700 hover:bg-green-900 text-white font-normal py-0.5 px-4 mr-1 rounded'>Lihat</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center border px-8 py-2">3</td>
                     <td class="text-center border px-8 py-2">Approved Dinsos</td>
                     <td class="text-center border px-8 py-2">{{$jumlah[2]}} orang</td>
                     <td class='border text-center px-8 py-2'>
@@ -33,7 +41,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="text-center border px-8 py-2">3</td>
+                    <td class="text-center border px-8 py-2">4</td>
                     <td class="text-center border px-8 py-2">Ditolak Dinsos</td>
                     <td class="text-center border px-8 py-2">{{$jumlah[3]}} orang</td>
                     <td class='border text-center px-8 py-2'>
@@ -41,47 +49,23 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="text-center border px-8 py-2">4</td>
-                    <td class="text-center border px-8 py-2">Approved Mentri</td>
+                    <td class="text-center border px-8 py-2">5</td>
+                    <td class="text-center border px-8 py-2">Masuk DTKS</td>
                     <td class="text-center border px-8 py-2">{{$jumlah[4]}} orang</td>
                     <td class='border text-center px-8 py-2'>
                         <a href='/penduduk/rekap?filter=2&stats=3' class='btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline bg-green-700 hover:bg-green-900 text-white font-normal py-0.5 px-4 mr-1 rounded'>Lihat</a>
                     </td>
                 </tr>
                 <tr>
-                    <td class="text-center border px-8 py-2">5</td>
-                    <td class="text-center border px-8 py-2">Ditolak Mentri</td>
+                    <td class="text-center border px-8 py-2">6</td>
+                    <td class="text-center border px-8 py-2">Ditolak DTKS</td>
                     <td class="text-center border px-8 py-2">{{$jumlah[5]}} orang</td>
                     <td class='border text-center px-8 py-2'>
                         <a href='/penduduk/rekap?filter=2&stats=7' class='btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline bg-green-700 hover:bg-green-900 text-white font-normal py-0.5 px-4 mr-1 rounded'>Lihat</a>
                     </td>
                 </tr>
                 <tr>
-                    <td class="text-center border px-8 py-2">6</td>
-                    <td class="text-center border px-8 py-2">Data Perbaikan</td>
-                    <td class="text-center border px-8 py-2">{{$jumlah[6]}} orang</td>
-                    <td class='border text-center px-8 py-2'>
-                        <a href='/penduduk/rekap?filter=1&stats=8' class='btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline bg-green-700 hover:bg-green-900 text-white font-normal py-0.5 px-4 mr-1 rounded'>Lihat</a>
-                    </td>
-                </tr>
-                <tr>
                     <td class="text-center border px-8 py-2">7</td>
-                    <td class="text-center border px-8 py-2">Pindah</td>
-                    <td class="text-center border px-8 py-2">{{$jumlah[7]}} orang</td>
-                    <td class='border text-center px-8 py-2'>
-                        <a href='/penduduk/rekap?filter=1&stats=1' class='btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline bg-green-700 hover:bg-green-900 text-white font-normal py-0.5 px-4 mr-1 rounded'>Lihat</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center border px-8 py-2">8</td>
-                    <td class="text-center border px-8 py-2">Hilang</td>
-                    <td class="text-center border px-8 py-2">{{$jumlah[8]}} orang</td>
-                    <td class='border text-center px-8 py-2'>
-                        <a href='/penduduk/rekap?filter=1&stats=6' class='btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline bg-green-700 hover:bg-green-900 text-white font-normal py-0.5 px-4 mr-1 rounded'>Lihat</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center border px-8 py-2">9</td>
                     <td class="text-center border px-8 py-2">Periode Ini</td>
                     <td class="text-center border px-8 py-2">{{$jumlah[9]}} orang</td>
                     <td class='border text-center px-8 py-2'>
@@ -89,7 +73,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="text-center border px-8 py-2">10</td>
+                    <td class="text-center border px-8 py-2">8</td>
                     <td class="text-center border px-8 py-2">Seluruh Data</td>
                     <td class="text-center border px-8 py-2">{{$jumlah[10]}} orang</td>
                     <td class='border text-center px-8 py-2'>

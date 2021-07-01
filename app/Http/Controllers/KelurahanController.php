@@ -32,21 +32,23 @@ class KelurahanController extends Controller
     }
 
     public function PendudukReport(Request $request){
-
-        $jumlah[1] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('approved_status', 1)->count();
-        $jumlah[2] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('approved_status', 2)->count();
-        $jumlah[3] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('approved_status', 6)->count();
-        $jumlah[4] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('approved_status', 3)->count();
-        $jumlah[5] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('approved_status', 7)->count();
-        $jumlah[6] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('penduduk_status', 8)->count();
-        $bandung = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('penduduk_status', 1)->count();
-        $luar_bandung = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('penduduk_status', 2)->count();
+        $kelurahan = auth()->user()->username;
+        $kelurahan_id = User::where('username', $kelurahan)->value('kelurahan_id');
+        $jumlah[1] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('approved_status', 1)->count();
+        $jumlah[2] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('approved_status', 2)->count();
+        $jumlah[3] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('approved_status', 6)->count();
+        $jumlah[4] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('approved_status', 3)->count();
+        $jumlah[5] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('approved_status', 7)->count();
+        $jumlah[6] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('penduduk_status', 8)->count();
+        $bandung = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('penduduk_status', 1)->count();
+        $luar_bandung = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('penduduk_status', 2)->count();
         $jumlah[7] = $bandung + $luar_bandung;
-        $jumlah[8] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('penduduk_status', 6)->count();
+        $jumlah[8] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('penduduk_status', 6)->count();
         $data_periode = Periode::latest('created_at')->first();
         $data = $data_periode->semester . " - " . $data_periode->year;
-        $jumlah[9] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('periode', $data)->count();
-        $jumlah[10] = Penduduk::latest('created_at')->distinct('penduduk_nik')->count();
+        $jumlah[9] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('periode', $data)->count();
+        $jumlah[10] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->count();
+        $jumlah[11] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('approved_status', 5)->count();
         // dd($jumlah);
         return view('kelurahan.penduduk_report')->with('jumlah', $jumlah);
     }
@@ -253,18 +255,5 @@ class KelurahanController extends Controller
         Penduduk::where('penduduk_id',$penduduk_id)->delete();
 
         return redirect()->route('pendudukdashboard');
-    }
-
-    public function RekapHome(Request $request){
-        
-        $data = Kelurahan::get();
-
-        foreach($data as $dt){
-            $dt->total_keluarga = Penduduk::distinct('penduduk_kk')->where('kelurahan_id', $dt->kelurahan_id)->count();
-        }
-        
-        // dd($data);
-        return view('home_rekap')
-        ->with('data',$data);
     }
 }

@@ -49,7 +49,7 @@ Route::get('/pendudukupdate/{id}',[KelurahanController::class, 'UpdateView'])->n
 Route::get('/pendudukupdate',[KelurahanController::class, 'Update'])->name('pendudukupdate');
 Route::get('/pendudukdelete/{id}',[KelurahanController::class, 'Delete'])->name('pendudukdelete');
 
-Route::get('/home/rekap',[KelurahanController::class, 'RekapHome'])->name('rekaphome');
+Route::get('/home/rekap',[DashboardController::class, 'RekapHome'])->name('rekaphome');
 
 //BA
 Route::post('/ba_create',[BAController::class, 'Create'])->name('ba_create');
@@ -62,6 +62,7 @@ Route::get('/ba/printpdf', [BAController::class, 'printPDF'])->name('printpdf');
 Route::get('/dinas/dashboard',[DinasController::class, 'DinasDashboard'])->name('dinasdashboard');
 Route::get('/dinas/report',[DinasController::class, 'DinasReport'])->name('dinasreport');
 Route::get('/dinas/rekap',[DinasController::class, 'PendudukRekap'])->name('dinasrekap');
+Route::get('/dinas/rekapstatus',[DinasController::class, 'PendudukRekapStatus'])->name('dinasrekapstatus');
 Route::get('/mentri/dashboard',[DinasController::class, 'MentriDashboard'])->name('mentridashboard');
 Route::post('/mentri/update',[DinasController::class, 'MentriUpdate'])->name('mentriupdate');
 Route::get('/periode',[DinasController::class, 'PeriodeView'])->name('periode');
