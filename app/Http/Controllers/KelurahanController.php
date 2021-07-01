@@ -104,14 +104,16 @@ class KelurahanController extends Controller
                     ->where('kelurahan_id',$kelurahan_id)
                     ->where('periode','!=', 'none')
                     ->where('penduduk_nik', $i)
-                    ->latest('penduduk.created_at');
-                    $temp = $temp
-                    ->where('penduduk_status', 1)
-                    ->orwhere('penduduk_status', 2)
-                    ->orwhere('penduduk_status', 3)
-                    ->orwhere('penduduk_status', 4)
-                    ->orwhere('penduduk_status', 6)
+                    ->latest('penduduk.created_at')
+                    // ->where('penduduk_status', 1)
+                    // ->orwhere('penduduk_status', 2)
+                    // ->orwhere('penduduk_status', 3)
+                    // ->orwhere('penduduk_status', 4)
+                    // ->orwhere('penduduk_status', 6)
                     ->first();
+                    if($temp->penduduk_status == 1 || $temp->penduduk_status == 2 || $temp->penduduk_status == 3 || $temp->penduduk_status == 4 || $temp->penduduk_status == 6){
+                        array_push($data, $temp);
+                    }
                 }else{
                     $temp = DB::table('penduduk')
                     ->join('penduduk_status','penduduk.penduduk_status','=','penduduk_status.id')
@@ -119,10 +121,12 @@ class KelurahanController extends Controller
                     ->where('kelurahan_id',$kelurahan_id)
                     ->where('periode','!=', 'none')
                     ->where('penduduk_nik', $i)
-                    ->latest('penduduk.created_at');
-                    $temp = $temp 
-                    ->where('penduduk_status', $request->stats)
+                    ->latest('penduduk.created_at')
+                    // ->where('penduduk_status', $request->stats)
                     ->first();
+                    if($temp->penduduk_status == $request->stats){
+                        array_push($data, $temp);
+                    }
                 }
             }
     
@@ -133,10 +137,12 @@ class KelurahanController extends Controller
                 ->where('kelurahan_id',$kelurahan_id)
                 ->where('periode','!=', 'none')
                 ->where('penduduk_nik', $i)
-                ->latest('penduduk.created_at');
-                $temp = $temp 
-                ->where('approved_status', $request->stats)
+                ->latest('penduduk.created_at')
                 ->first();
+                // ->where('approved_status', $request->stats)
+                if($temp->approved_status == $request->stats){
+                    array_push($data, $temp);
+                }
             }
             
             // $temp = DB::table('penduduk')
@@ -147,8 +153,8 @@ class KelurahanController extends Controller
             // ->where('penduduk_nik', $i)
             // ->latest('penduduk.created_at')
             // ->first();
-            array_push($data, $temp);
             // dd($temp);
+            // array_push($data, $temp);
         }
         // dd($data);
         foreach($data as $dt){
