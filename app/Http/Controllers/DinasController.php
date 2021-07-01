@@ -221,10 +221,12 @@ class DinasController extends Controller
         // }
         $kelurahan_id = $request->kelurahan_id;
         $name = Kelurahan::where('kelurahan_id', $kelurahan_id)->value('kelurahan_nama');
-        $jumlah_1 = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->get();
+        $jumlah_1 = Penduduk::where('kelurahan_id', $kelurahan_id)->latest('created_at')->distinct()->pluck('penduduk_nik');
+        // return $jumlah_1;
         $jumlah[1] = 0;
         foreach($jumlah_1 as $j1){
-            if($j1->penduduk_status == 0){
+            $exist = Penduduk::where('penduduk_nik', $j1)->latest('created_at')->first();
+            if($exist->penduduk_status == 0){
                 $jumlah[1] += 1;
             }
         }
