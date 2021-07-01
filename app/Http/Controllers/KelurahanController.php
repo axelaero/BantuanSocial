@@ -160,19 +160,30 @@ class KelurahanController extends Controller
             // return "ERROR, nama yang telah dicantumkan berbeda dengan data NIK sebelumnya!";
             //response error
         }
-        
-        // $data_periode = Periode::latest('created_at')->first();
-        // $periode = $data_periode->semester . " - " . $data_periode->year;
-        // //Validasi nik sama pada periode yang sama
-        // $new_nik = $request->NIK;
-        // $val_new_nik = Penduduk::where('penduduk_nik', $new_nik)
-        // ->where('periode', 'none')      //check ke data yang belum ada id bdt dan blm dibuat bap
-        // // ->orWhere('periode', $periode)  //check ke data yang sudah ada id bdt dan juga ada bap
-        // ->first();
-        // if($val_new_nik){
-        //     return "ERROR, NIK dan nama sudah didaftarkan sebelumnya!";
-        //     //response error
-        // }
+
+        //Validasi id bdt, nik
+        //if bdt existed
+        if($request->BDT){
+            $bdt_exist = Penduduk::where('penduduk_id_bdt', $request->BDT)->where('penduduk_nik', $request->NIK)->latest('created_at')->first();
+            if(!$bdt_exist){
+                $data = DB::table('periode')->latest('created_at')->first();
+                $msg = 'NIK dan ID BDT Tidak sesuai!';
+                return view('kelurahan.penduduk_create')
+                ->with('data',$data)
+                ->with('msg', $msg);
+            }
+        }else{
+        //if bdt not existed
+            $bdt_exist = Penduduk::where('penduduk_nik', $request->NIK)->latest('created_at')->value('penduduk_id_bdt');
+            if($bdt_exist != null){
+                $data = DB::table('periode')->latest('created_at')->first();
+                $msg = 'Masukan ID BDT yang terdaftar!';
+                return view('kelurahan.penduduk_create')
+                ->with('data',$data)
+                ->with('msg', $msg);
+                
+            }
+        }
 
         //Validasi pembuatan status dan deskripsi jika pernah ada sebelum nya
         $val_status = Penduduk::where("penduduk_nik", $request->NIK)
