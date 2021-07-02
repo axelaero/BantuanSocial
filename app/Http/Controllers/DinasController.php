@@ -262,8 +262,12 @@ class DinasController extends Controller
         $iteration = DB::table('penduduk')
         ->join('penduduk_status','penduduk.penduduk_status','=','penduduk_status.id')
         // ->leftjoin('approved_status','penduduk.approved_status','=','approved_status.id')
-        ->where('kelurahan_id',$kelurahan_id)
-        ->where('periode','!=', 'none');
+        ->where('kelurahan_id',$kelurahan_id);
+        if($request->periode == 1){
+            $iteration = $iteration->where('periode', $data_periode_txt);
+        }else{
+            $iteration = $iteration->where('periode','!=', 'none');
+        }
 
         if($request->filter == 1){
 
@@ -285,9 +289,9 @@ class DinasController extends Controller
         $data_periode = Periode::latest('created_at')->first();
         $data_periode_txt = $data_periode->semester . " - " . $data_periode->year;
 
-        if($request->periode == 1){
-            $iteration = $iteration->where('periode', $data_periode_txt);
-        }
+        // if($request->periode == 1){
+        //     $iteration = $iteration->where('periode', $data_periode_txt);
+        // }
 
         $iteration =  $iteration->distinct('penduduk_nik')->pluck('penduduk_nik');
         $data = array();
