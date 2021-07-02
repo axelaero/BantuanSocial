@@ -31,14 +31,14 @@ class DashboardController extends Controller
             $data = Kelurahan::get();
     
             foreach($data as $dt){
-                $dt->total_keluarga = Penduduk::distinct('penduduk_kk')->where('kelurahan_id', $dt->kelurahan_id)->where('periode', $periode)->count();
+                $dt->total_keluarga = Penduduk::distinct('penduduk_kk')->where('kelurahan_id', $dt->kelurahan_id)->where('periode', $periode)->where('approved_status',3)->count();
             }
         }else{
 
             $data = Kelurahan::get();
     
             foreach($data as $dt){
-                $dt->total_keluarga = Penduduk::distinct('penduduk_kk')->where('kelurahan_id', $dt->kelurahan_id)->count();
+                $dt->total_keluarga = Penduduk::distinct('penduduk_kk')->where('kelurahan_id', $dt->kelurahan_id)->where('approved_status',3)->count();
             }
         }
         

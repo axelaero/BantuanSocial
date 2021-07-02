@@ -243,12 +243,11 @@ class DinasController extends Controller
         $data = $data_periode->semester . " - " . $data_periode->year;
         $jumlah[9] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('periode', $data)->count();
         $jumlah[10] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->count();
-        $jumlah[11] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)
-        ->where('penduduk_status', 1)
-        ->orwhere('penduduk_status', 2)
-        ->orwhere('penduduk_status', 3)
-        ->orwhere('penduduk_status', 4)
-        ->orwhere('penduduk_status', 6)->count();
+        $jumlah[11] = Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('penduduk_status', 1)->count();
+        $jumlah[11] += Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('penduduk_status', 2)->count();
+        $jumlah[11] += Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('penduduk_status', 3)->count();
+        $jumlah[11] += Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('penduduk_status', 4)->count();
+        $jumlah[11] += Penduduk::latest('created_at')->distinct('penduduk_nik')->where('kelurahan_id', $kelurahan_id)->where('penduduk_status', 6)->count();
         // dd($jumlah);
         return view('dinas.dinas_rekap')->with('jumlah', $jumlah)->with('kelurahan_id', $kelurahan_id)->with('name',$name);
 
@@ -309,8 +308,11 @@ class DinasController extends Controller
                     // ->orwhere('penduduk_status', 4)
                     // ->orwhere('penduduk_status', 6)
                     ->first();
-                    if($temp->penduduk_status == 1 || $temp->penduduk_status == 2 || $temp->penduduk_status == 3 || $temp->penduduk_status == 4 || $temp->penduduk_status == 6){
-                        array_push($data, $temp);
+                    if($temp){
+
+                        if($temp->penduduk_status == 1 || $temp->penduduk_status == 2 || $temp->penduduk_status == 3 || $temp->penduduk_status == 4 || $temp->penduduk_status == 6){
+                            array_push($data, $temp);
+                        }
                     }
                 }else{
                     $temp = DB::table('penduduk')
@@ -322,8 +324,11 @@ class DinasController extends Controller
                     ->latest('penduduk.created_at')
                     // ->where('penduduk_status', $request->stats)
                     ->first();
-                    if($temp->penduduk_status == $request->stats){
-                        array_push($data, $temp);
+                    if($temp){
+
+                        if($temp->penduduk_status == $request->stats){
+                            array_push($data, $temp);
+                        }
                     }
                 }
             }
@@ -338,8 +343,11 @@ class DinasController extends Controller
                 ->latest('penduduk.created_at')
                 ->first();
                 // ->where('approved_status', $request->stats)
-                if($temp->approved_status == $request->stats){
-                    array_push($data, $temp);
+                if($temp){
+
+                    if($temp->approved_status == $request->stats){
+                        array_push($data, $temp);
+                    }
                 }
             }
         }
