@@ -263,6 +263,8 @@ class DinasController extends Controller
         ->join('penduduk_status','penduduk.penduduk_status','=','penduduk_status.id')
         // ->leftjoin('approved_status','penduduk.approved_status','=','approved_status.id')
         ->where('kelurahan_id',$kelurahan_id);
+        $data_periode = Periode::latest('created_at')->first();
+        $data_periode_txt = $data_periode->semester . " - " . $data_periode->year;
         if($request->periode == 1){
             $iteration = $iteration->where('periode', $data_periode_txt);
         }else{
@@ -302,14 +304,8 @@ class DinasController extends Controller
                     $temp = DB::table('penduduk')
                     ->join('penduduk_status','penduduk.penduduk_status','=','penduduk_status.id')
                     // ->leftjoin('approved_status','penduduk.approved_status','=','approved_status.id')
-                    ->where('kelurahan_id',$kelurahan_id);
-                    if($request->periode == 1){
-                        $temp = $temp->where('periode', $data_periode_txt);
-                    }else{
-                        $temp = $temp->where('periode','!=', 'none');
-                    }
-                    // ->where('periode','!=', 'none')
-                    $temp = $temp
+                    ->where('kelurahan_id',$kelurahan_id)
+                    ->where('periode','!=', 'none')
                     ->where('penduduk_nik', $i)
                     ->latest('penduduk.created_at')
                     // ->where('penduduk_status', 1)
@@ -328,14 +324,8 @@ class DinasController extends Controller
                     $temp = DB::table('penduduk')
                     ->join('penduduk_status','penduduk.penduduk_status','=','penduduk_status.id')
                     // ->leftjoin('approved_status','penduduk.approved_status','=','approved_status.id')
-                    ->where('kelurahan_id',$kelurahan_id);
-                    if($request->periode == 1){
-                        $temp = $temp->where('periode', $data_periode_txt);
-                    }else{
-                        $temp = $temp->where('periode','!=', 'none');
-                    }
-                    // ->where('periode','!=', 'none')
-                    $temp = $temp
+                    ->where('kelurahan_id',$kelurahan_id)
+                    ->where('periode','!=', 'none')
                     ->where('penduduk_nik', $i)
                     ->latest('penduduk.created_at')
                     // ->where('penduduk_status', $request->stats)
@@ -353,14 +343,8 @@ class DinasController extends Controller
                 $temp = DB::table('penduduk')
                 ->join('penduduk_status','penduduk.penduduk_status','=','penduduk_status.id')
                 // ->leftjoin('approved_status','penduduk.approved_status','=','approved_status.id')
-                ->where('kelurahan_id',$kelurahan_id);
-                if($request->periode == 1){
-                    $temp = $temp->where('periode', $data_periode_txt);
-                }else{
-                    $temp = $temp->where('periode','!=', 'none');
-                }
-                // ->where('periode','!=', 'none')
-                $temp = $temp
+                ->where('kelurahan_id',$kelurahan_id)
+                ->where('periode','!=', 'none')
                 ->where('penduduk_nik', $i)
                 ->latest('penduduk.created_at')
                 ->first();
@@ -370,6 +354,35 @@ class DinasController extends Controller
                     if($temp->approved_status == $request->stats){
                         array_push($data, $temp);
                     }
+                }
+            }
+            
+            if($request->periode == 1){
+                $temp = DB::table('penduduk')
+                ->join('penduduk_status','penduduk.penduduk_status','=','penduduk_status.id')
+                // ->leftjoin('approved_status','penduduk.approved_status','=','approved_status.id')
+                ->where('kelurahan_id',$kelurahan_id)
+                ->where('periode', $data_periode_txt)
+                ->where('penduduk_nik', $i)
+                ->latest('penduduk.created_at')
+                ->first();
+                // ->where('approved_status', $request->stats)
+                if($temp){
+                    array_push($data, $temp);
+                }
+            }
+
+            if(!$request->periode && !$request->filter){
+                $temp = DB::table('penduduk')
+                ->join('penduduk_status','penduduk.penduduk_status','=','penduduk_status.id')
+                // ->leftjoin('approved_status','penduduk.approved_status','=','approved_status.id')
+                ->where('kelurahan_id',$kelurahan_id)
+                ->where('periode','!=', 'none')
+                ->where('penduduk_nik', $i)
+                ->latest('penduduk.created_at')
+                ->first();
+                if($temp){
+                    array_push($data, $temp);
                 }
             }
         }
