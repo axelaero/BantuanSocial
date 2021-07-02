@@ -31,7 +31,7 @@ class DashboardController extends Controller
             $data = Kelurahan::get();
     
             foreach($data as $dt){
-                $dt->total_keluarga = Penduduk::distinct('penduduk_kk')->where('kelurahan_id', $dt->kelurahan_id)->where('periode', $periode)->where('approved_status',2)->count();
+                $dt->total_keluarga = Penduduk::distinct('penduduk_kk')->where('kelurahan_id', $dt->kelurahan_id)->where('periode', $periode)->where('penduduk_status',2)->count();
             }
         }else{
 
