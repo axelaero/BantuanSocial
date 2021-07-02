@@ -8,6 +8,7 @@ use App\Models\Penduduk;
 use App\Models\Kelurahan;
 use Illuminate\Http\Request;
 use App\Models\ApprovedStatus;
+use App\Models\PendudukStatus;
 use Illuminate\Support\Facades\DB;
 
 class KelurahanController extends Controller
@@ -129,9 +130,12 @@ class KelurahanController extends Controller
                     if($temp){
 
                         if($temp->penduduk_status == 1 || $temp->penduduk_status == 2 || $temp->penduduk_status == 3 || $temp->penduduk_status == 4 || $temp->penduduk_status == 6){
+                            $msg = 'Data Perbaikan';
+                            $msg = ucwords($msg);
                             array_push($data, $temp);
                         }
                     }
+                    
                 }else{
                     $temp = DB::table('penduduk')
                     ->join('penduduk_status','penduduk.penduduk_status','=','penduduk_status.id')
@@ -145,6 +149,8 @@ class KelurahanController extends Controller
                     if($temp){
 
                         if($temp->penduduk_status == $request->stats){
+                            $msg = PendudukStatus::where('id', $temp->penduduk_status)->value('deskripsi');
+                            $msg = ucwords($msg);
                             array_push($data, $temp);
                         }
                     }
@@ -164,6 +170,8 @@ class KelurahanController extends Controller
                 if($temp){
 
                     if($temp->approved_status == $request->stats){
+                        $msg = ApprovedStatus::where('id', $temp->penduduk_status)->value('deskripsi');
+                        $msg = ucwords($msg);
                         array_push($data, $temp);
                     }
                 }
@@ -180,6 +188,7 @@ class KelurahanController extends Controller
                 ->first();
                 // ->where('approved_status', $request->stats)
                 if($temp){
+                    $msg = "Perdiode Ini";
                     array_push($data, $temp);
                 }
             }
@@ -194,6 +203,7 @@ class KelurahanController extends Controller
                 ->latest('penduduk.created_at')
                 ->first();
                 if($temp){
+                    $msg = "Seluruh Data";
                     array_push($data, $temp);
                 }
             }
@@ -217,7 +227,8 @@ class KelurahanController extends Controller
         // dd($data);
         return view('kelurahan.penduduk_rekap')
         ->with('data',$data)
-        ->with('kelurahan_id', $kelurahan_id);
+        ->with('kelurahan_id', $kelurahan_id)
+        ->with('msg', $msg);
     }
 
     public function CreateView(Request $request){

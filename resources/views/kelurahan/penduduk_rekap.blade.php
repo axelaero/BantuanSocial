@@ -3,7 +3,7 @@
 @section('content')
     <div class="flex justify-center" style="margin-top:25px">
         <font size="28">
-            <h1>Rekap Data Penduduk</h1>
+            <h1>Rekap Data Penduduk - {{$msg}}</h1>
         </font>
     </div>
     <br>
