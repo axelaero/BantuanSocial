@@ -13,10 +13,10 @@ class DashboardController extends Controller
     // {
     //     $this->middleware(['auth']);
     // }
-    public function __construct()
-    {
-        $this->middleware(['guest']);
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware(['guest']);
+    // }
     public function index(){
         
         return view('dashboard');
@@ -31,14 +31,14 @@ class DashboardController extends Controller
             $data = Kelurahan::get();
     
             foreach($data as $dt){
-                $dt->total_keluarga = Penduduk::distinct('penduduk_kk')->where('kelurahan_id', $dt->kelurahan_id)->where('periode', $periode)->where('approved_status',3)->count();
+                $dt->total_keluarga = Penduduk::distinct('penduduk_kk')->where('kelurahan_id', $dt->kelurahan_id)->where('periode', $periode)->where('penduduk_status',2)->count();
             }
         }else{
 
             $data = Kelurahan::get();
     
             foreach($data as $dt){
-                $dt->total_keluarga = Penduduk::distinct('penduduk_kk')->where('kelurahan_id', $dt->kelurahan_id)->where('approved_status',3)->count();
+                $dt->total_keluarga = Penduduk::distinct('penduduk_kk')->where('kelurahan_id', $dt->kelurahan_id)->where('penduduk_status',3)->count();
             }
         }
         
