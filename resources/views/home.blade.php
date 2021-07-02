@@ -26,7 +26,7 @@ use App\Models\Periode;
                                 $data = Kelurahan::get();
                                 $total = 0;
                                 foreach($data as $dt){
-                                    $total += Penduduk::distinct('penduduk_kk')->where('kelurahan_id', $dt->kelurahan_id)->where('penduduk_status',3)->count();
+                                    $total += Penduduk::distinct('penduduk_kk')->where('kelurahan_id', $dt->kelurahan_id)->where('approved_status',3)->count();
                                 }
                                 echo "<br><font size='12'>Jumlah : " . $total . " Keluarga</font>";
                             ?>
