@@ -127,11 +127,10 @@ class KelurahanController extends Controller
                     // ->orwhere('penduduk_status', 4)
                     // ->orwhere('penduduk_status', 6)
                     ->first();
+                    $msg = 'Data Perbaikan';
                     if($temp){
 
                         if($temp->penduduk_status == 1 || $temp->penduduk_status == 2 || $temp->penduduk_status == 3 || $temp->penduduk_status == 4 || $temp->penduduk_status == 6){
-                            $msg = 'Data Perbaikan';
-                            $msg = ucwords($msg);
                             array_push($data, $temp);
                         }
                     }
@@ -146,11 +145,11 @@ class KelurahanController extends Controller
                     ->latest('penduduk.created_at')
                     // ->where('penduduk_status', $request->stats)
                     ->first();
+                    $msg = PendudukStatus::where('id', $temp->penduduk_status)->value('deskripsi');
+                    $msg = ucwords($msg);
                     if($temp){
 
                         if($temp->penduduk_status == $request->stats){
-                            $msg = PendudukStatus::where('id', $temp->penduduk_status)->value('deskripsi');
-                            $msg = ucwords($msg);
                             array_push($data, $temp);
                         }
                     }
@@ -167,11 +166,11 @@ class KelurahanController extends Controller
                 ->latest('penduduk.created_at')
                 ->first();
                 // ->where('approved_status', $request->stats)
+                $msg = ApprovedStatus::where('id', $temp->penduduk_status)->value('deskripsi');
+                $msg = ucwords($msg);
                 if($temp){
 
                     if($temp->approved_status == $request->stats){
-                        $msg = ApprovedStatus::where('id', $temp->penduduk_status)->value('deskripsi');
-                        $msg = ucwords($msg);
                         array_push($data, $temp);
                     }
                 }
@@ -187,8 +186,8 @@ class KelurahanController extends Controller
                 ->latest('penduduk.created_at')
                 ->first();
                 // ->where('approved_status', $request->stats)
+                $msg = "Perdiode Ini";
                 if($temp){
-                    $msg = "Perdiode Ini";
                     array_push($data, $temp);
                 }
             }
@@ -202,8 +201,8 @@ class KelurahanController extends Controller
                 ->where('penduduk_nik', $i)
                 ->latest('penduduk.created_at')
                 ->first();
+                $msg = "Seluruh Data";
                 if($temp){
-                    $msg = "Seluruh Data";
                     array_push($data, $temp);
                 }
             }
