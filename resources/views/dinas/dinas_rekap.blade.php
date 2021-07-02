@@ -26,7 +26,7 @@
                 </tr>
                 <tr>
                     <td class="text-center border px-8 py-2">2</td>
-                    <td class="text-center border px-8 py-2">Data Baru</td>
+                    <td class="text-center border px-8 py-2">Data Perbaikan</td>
                     <td class="text-center border px-8 py-2">{{$jumlah[11]}} orang</td>
                     <td class='border text-center px-8 py-2'>
                         <a href='/dinas/rekapstatus?kelurahan_id={{$kelurahan_id}}&filter=1&stats=1' class='btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline bg-green-700 hover:bg-green-900 text-white font-normal py-0.5 px-4 mr-1 rounded'>Lihat</a>

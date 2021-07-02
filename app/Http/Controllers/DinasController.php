@@ -9,6 +9,7 @@ use App\Models\RelasiPBA;
 use App\Models\BeritaAcara;
 use Illuminate\Http\Request;
 use App\Models\ApprovedStatus;
+use App\Models\PendudukStatus;
 use Illuminate\Support\Facades\DB;
 
 class DinasController extends Controller
@@ -258,6 +259,36 @@ class DinasController extends Controller
     }
 
     public function PendudukRekapStatus(Request $request){
+        if($request->filter == 1){
+            if($request->stats == 1){
+                $msg = "Data Perbaikan";
+            }else{
+                $msg = "Data Baru";
+            }
+        }
+        if($request->filter == 2){
+            if($request->filter == 2){
+                if($request->stats == 2){
+                    $msg = ucwords('approved dinsos');
+                }
+                if($request->stats == 6){
+                    $msg = ucwords('ditolak dinsos');
+                }
+                if($request->stats == 3){
+                    $msg = ucwords('masuk dtks');
+                }
+                if($request->stats == 7){
+                    $msg = ucwords('ditolak dtks');
+                }
+            }
+        }
+        if($request->periode == 1){
+            $msg = "Perdiode Ini";
+        }
+        if(!$request->periode && !$request->filter){
+            $msg = "Seluruh Data";
+        }
+
         $kelurahan_id = $request->kelurahan_id;
         $iteration = DB::table('penduduk')
         ->join('penduduk_status','penduduk.penduduk_status','=','penduduk_status.id')
@@ -314,7 +345,7 @@ class DinasController extends Controller
                     // ->orwhere('penduduk_status', 4)
                     // ->orwhere('penduduk_status', 6)
                     ->first();
-                    $msg = 'Data Perbaikan';
+                    // $msg = 'Data Perbaikan';
                     if($temp){
 
                         if($temp->penduduk_status == 1 || $temp->penduduk_status == 2 || $temp->penduduk_status == 3 || $temp->penduduk_status == 4 || $temp->penduduk_status == 6){
@@ -331,8 +362,7 @@ class DinasController extends Controller
                     ->latest('penduduk.created_at')
                     // ->where('penduduk_status', $request->stats)
                     ->first();
-                    $msg = PendudukStatus::where('id', $temp->penduduk_status)->value('deskripsi');
-                    $msg = ucwords($msg);
+                    // $msg = ucwords("Data Baru");
                     if($temp){
 
                         if($temp->penduduk_status == $request->stats){
@@ -352,8 +382,8 @@ class DinasController extends Controller
                 ->latest('penduduk.created_at')
                 ->first();
                 // ->where('approved_status', $request->stats)
-                $msg = ApprovedStatus::where('id', $temp->penduduk_status)->value('deskripsi');
-                $msg = ucwords($msg);
+                // $msg = ApprovedStatus::where('id', $temp->penduduk_status)->value('deskripsi');
+                // $msg = ucwords($msg);
                 if($temp){
 
                     if($temp->approved_status == $request->stats){
@@ -372,7 +402,7 @@ class DinasController extends Controller
                 ->latest('penduduk.created_at')
                 ->first();
                 // ->where('approved_status', $request->stats)
-                $msg = "Perdiode Ini";
+                // $msg = "Perdiode Ini";
                 if($temp){
                     array_push($data, $temp);
                 }
@@ -387,7 +417,7 @@ class DinasController extends Controller
                 ->where('penduduk_nik', $i)
                 ->latest('penduduk.created_at')
                 ->first();
-                $msg = "Seluruh Data";
+                // $msg = "Seluruh Data";
                 if($temp){
                     array_push($data, $temp);
                 }

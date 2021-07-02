@@ -73,6 +73,36 @@ class KelurahanController extends Controller
     }
 
     public function PendudukRekap(Request $request){
+        if($request->filter == 1){
+            if($request->stats == 1){
+                $msg = "Data Perbaikan";
+            }else{
+                $msg = "Data Baru";
+            }
+        }
+        if($request->filter == 2){
+            if($request->stats == 2){
+                $msg = ucwords('approved dinsos');
+            }
+            if($request->stats == 6){
+                $msg = ucwords('ditolak dinsos');
+            }
+            if($request->stats == 3){
+                $msg = ucwords('masuk dtks');
+            }
+            if($request->stats == 7){
+                $msg = ucwords('ditolak dtks');
+            }
+            // $msg = ApprovedStatus::where('id', $request->stats)->value('deskripsi');
+            // $msg = ucwords($msg);
+        }
+        if($request->periode == 1){
+            $msg = "Perdiode Ini";
+        }
+        if(!$request->periode && !$request->filter){
+            $msg = "Seluruh Data";
+        }
+
         $kelurahan = auth()->user()->username;
         $kelurahan_id = User::where('username', $kelurahan)->value('kelurahan_id');
         $iteration = DB::table('penduduk')
@@ -127,7 +157,7 @@ class KelurahanController extends Controller
                     // ->orwhere('penduduk_status', 4)
                     // ->orwhere('penduduk_status', 6)
                     ->first();
-                    $msg = 'Data Perbaikan';
+                    // $msg = 'Data Perbaikan';
                     if($temp){
 
                         if($temp->penduduk_status == 1 || $temp->penduduk_status == 2 || $temp->penduduk_status == 3 || $temp->penduduk_status == 4 || $temp->penduduk_status == 6){
@@ -145,8 +175,8 @@ class KelurahanController extends Controller
                     ->latest('penduduk.created_at')
                     // ->where('penduduk_status', $request->stats)
                     ->first();
-                    $msg = PendudukStatus::where('id', $temp->penduduk_status)->value('deskripsi');
-                    $msg = ucwords($msg);
+                    // $msg = PendudukStatus::where('id', $temp->penduduk_status)->value('deskripsi');
+                    // $msg = ucwords($msg);
                     if($temp){
 
                         if($temp->penduduk_status == $request->stats){
@@ -166,8 +196,7 @@ class KelurahanController extends Controller
                 ->latest('penduduk.created_at')
                 ->first();
                 // ->where('approved_status', $request->stats)
-                $msg = ApprovedStatus::where('id', $temp->penduduk_status)->value('deskripsi');
-                $msg = ucwords($msg);
+                // $msg = ucwords("Data Baru");
                 if($temp){
 
                     if($temp->approved_status == $request->stats){
@@ -186,7 +215,7 @@ class KelurahanController extends Controller
                 ->latest('penduduk.created_at')
                 ->first();
                 // ->where('approved_status', $request->stats)
-                $msg = "Perdiode Ini";
+                // $msg = "Perdiode Ini";
                 if($temp){
                     array_push($data, $temp);
                 }
@@ -201,7 +230,7 @@ class KelurahanController extends Controller
                 ->where('penduduk_nik', $i)
                 ->latest('penduduk.created_at')
                 ->first();
-                $msg = "Seluruh Data";
+                // $msg = "Seluruh Data";
                 if($temp){
                     array_push($data, $temp);
                 }
