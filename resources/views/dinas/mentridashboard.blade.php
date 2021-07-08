@@ -7,7 +7,7 @@
         </font>
     </div>
     <br>
-    <form action="" method="get">
+    <form action="{{ route('mentridashboard') }}" method="get">
         <div class="flex justify-center">
             <div class="w-12/12 p-6 rounded-lg justify-center flex">
                 <table>

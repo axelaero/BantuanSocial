@@ -134,7 +134,7 @@ class BAController extends Controller
                 ]);
             }
         }
-        
+
         foreach($deskripsi as $des){
             
             $id = $des["penduduk_id"];
@@ -147,6 +147,7 @@ class BAController extends Controller
                 ]);
             }      
         }
+        
         //update ba
         BeritaAcara::where('ba_id', $ba_id)
         ->update([
