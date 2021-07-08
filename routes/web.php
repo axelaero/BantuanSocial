@@ -68,6 +68,8 @@ Route::post('/mentri/update',[DinasController::class, 'MentriUpdate'])->name('me
 Route::get('/periode',[DinasController::class, 'PeriodeView'])->name('periode');
 Route::post('/periodecreate',[DinasController::class, 'PeriodeCreate'])->name('periodecreate');
 
+//search
+
 //not used
 Route::get('/posts', function () {
     return view('posts.index');

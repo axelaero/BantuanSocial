@@ -109,6 +109,9 @@ class KelurahanController extends Controller
         ->join('penduduk_status','penduduk.penduduk_status','=','penduduk_status.id')
         // ->leftjoin('approved_status','penduduk.approved_status','=','approved_status.id')
         ->where('kelurahan_id',$kelurahan_id);
+        if($request->searchnik){
+            $iteration = $iteration->where('penduduk_nik', $request->searchnik);
+        }
         $data_periode = Periode::latest('created_at')->first();
         $data_periode_txt = $data_periode->semester . " - " . $data_periode->year;
         if($request->periode == 1){
@@ -256,7 +259,9 @@ class KelurahanController extends Controller
         return view('kelurahan.penduduk_rekap')
         ->with('data',$data)
         ->with('kelurahan_id', $kelurahan_id)
-        ->with('msg', $msg);
+        ->with('msg', $msg)
+        ->with('filter', $request->filter)
+        ->with('stats', $request->stats);
     }
 
     public function CreateView(Request $request){
