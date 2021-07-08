@@ -149,6 +149,7 @@ class BAController extends Controller
         }
         
         //update ba
+        
         BeritaAcara::where('ba_id', $ba_id)
         ->update([
             'cek_dinas' => 1,

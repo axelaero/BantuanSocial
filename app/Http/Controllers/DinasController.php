@@ -35,7 +35,7 @@ class DinasController extends Controller
         ->where('cek_dinas',1)
         ->where('cek_mentri',0);
         if($request->searchnik){
-            $data = $data->where('penduduk_nik', $request->search_nik);
+            $data = $data->where('penduduk_nik', $request->searchnik);
         }
         $data = $data->get();
         // dd($data);
