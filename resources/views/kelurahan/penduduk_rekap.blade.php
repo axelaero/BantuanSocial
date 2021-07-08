@@ -7,7 +7,7 @@
         </font>
     </div>
     <br>
-    <form action="{{ route('pendudukrekap') }}" method="get">
+    <form action="{{ route('dinasrekapstatus') }}" method="get">
         <div class="flex justify-center">
             <div class="w-12/12 p-6 rounded-lg justify-center flex">
                 <table>
