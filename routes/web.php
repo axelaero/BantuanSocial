@@ -53,7 +53,7 @@ Route::get('/home/rekap',[DashboardController::class, 'RekapHome'])->name('rekap
 
 //BA
 Route::post('/ba_create',[BAController::class, 'Create'])->name('ba_create');
-Route::get('/ba_update/{id}',[BAController::class, 'UpdateView'])->name('ba_updateview');
+Route::get('/ba_update',[BAController::class, 'UpdateView'])->name('ba_updateview');
 Route::post('/ba_update',[BAController::class, 'Update'])->name('ba_update');
 Route::get('/ba/printview', [BAController::class, 'printview'])->name('printview');
 Route::get('/ba/printpdf', [BAController::class, 'printPDF'])->name('printpdf');

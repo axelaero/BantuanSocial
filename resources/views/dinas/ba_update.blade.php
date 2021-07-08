@@ -14,6 +14,7 @@
                 <table>
                     <tr>
                         <td>
+                            <input type="hidden" name="ba_id" value={{$ba_id}}>
                             <input type="text" name="searchnik" id="" placeholder="Cari NIK" class="w-12/12 p-3 rounded-lg justify-center flex" style="width:400px;">
                         </td>
                         <td>

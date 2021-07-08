@@ -28,7 +28,7 @@
                     <td class="text-center border px-8 py-2">{{$dt->ba_id}}</td>
                     <td class="text-center border px-8 py-2">{{$dt->kelurahan_nama}}</td>
                     <td class='border text-center px-8 py-2'>
-                        <a href='/ba_update/{{$dt->ba_id}}' class='btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline bg-green-700 hover:bg-green-900 text-white font-normal py-0.5 px-4 mr-1 rounded'>Cek</a>
+                        <a href='/ba_update?ba_id={{$dt->ba_id}}' class='btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline bg-green-700 hover:bg-green-900 text-white font-normal py-0.5 px-4 mr-1 rounded'>Cek</a>
                     </td>
                 </tr>
                 @endforeach

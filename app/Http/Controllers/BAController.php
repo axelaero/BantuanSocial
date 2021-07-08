@@ -78,12 +78,16 @@ class BAController extends Controller
         ->with('ba_id', $ba_id);
     }
 
-    public function UpdateView(Request $request, $ba_id){
+    public function UpdateView(Request $request){
 
+        $ba_id = $request->ba_id;
         $data = DB::table('relasi_penduduk_ba')
         ->join('penduduk','relasi_penduduk_ba.penduduk_id','=','penduduk.penduduk_id');
-        $data = $data->where('ba_id', $ba_id)
-        ->get();
+        $data = $data->where('ba_id', $ba_id);
+        if($request->searchnik){
+            $data = $data->where('penduduk_nik', $request->searchnik);
+        }
+        $data = $data->where('cek_dinas', 0)->get();
         $kelurahan_id = BeritaAcara::latest('created_at')->where('ba_id',$ba_id)->value('kelurahan_id');
         $nama = Kelurahan::where('kelurahan_id',$kelurahan_id)->value('kelurahan_nama');
         $periode = BeritaAcara::latest('created_at')->where('ba_id',$ba_id)->value('periode');
@@ -149,11 +153,13 @@ class BAController extends Controller
         }
         
         //update ba
-        
-        BeritaAcara::where('ba_id', $ba_id)
-        ->update([
-            'cek_dinas' => 1,
-        ]);
+        $bacheck = RelasiPBA::where('ba_id', $ba_id)->where('cek_dinas', 0)->first();
+        if(!$bacheck){
+            BeritaAcara::where('ba_id', $ba_id)
+            ->update([
+                'cek_dinas' => 1,
+            ]);
+        }
         
         return redirect()->route('dinasreport');
     }
