@@ -33,8 +33,11 @@ class DinasController extends Controller
         ->leftjoin('penduduk_status','penduduk.penduduk_status','=','penduduk_status.id')
         ->where('approved_status', 2)
         ->where('cek_dinas',1)
-        ->where('cek_mentri',0)
-        ->get();
+        ->where('cek_mentri',0);
+        if($request->searchnik){
+            $data = $data->where('penduduk_nik', $request->search_nik);
+        }
+        $data = $data->get();
         // dd($data);
         return view('dinas.mentridashboard')
         ->with('data',$data);

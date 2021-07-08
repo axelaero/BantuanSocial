@@ -7,6 +7,22 @@
         </font>
     </div>
     <br>
+    <form action="" method="get">
+        <div class="flex justify-center">
+            <div class="w-12/12 p-6 rounded-lg justify-center flex">
+                <table>
+                    <tr>
+                        <td>
+                            <input type="text" name="searchnik" id="" placeholder="Cari NIK" class="w-12/12 p-3 rounded-lg justify-center flex" style="width:400px;">
+                        </td>
+                        <td>
+                            <button class="bg-blue-500 text-white px-4 py-3 rounded font-medium w-full" style="margin-left: 25px;width:200px">Cari</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </form>
 <div class="flex justify-center">
         <div class="w-12/12 bg-white p-6 rounded-lg justify-center flex">
         <form action="{{ route('mentriupdate') }}" method="post">
