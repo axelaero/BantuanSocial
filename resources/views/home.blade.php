@@ -47,7 +47,7 @@ use App\Models\Periode;
                                 $data_periode = Periode::latest('created_at')->first();
                                 $periode = $data_periode->semester . " - " . $data_periode->year;
                                 foreach($data as $dt){
-                                    $total += Penduduk::distinct('penduduk_kk')->where('kelurahan_id', $dt->kelurahan_id)->where('periode', $periode)->where('penduduk_status',2)->count();
+                                    $total += Penduduk::distinct('penduduk_kk')->where('kelurahan_id', $dt->kelurahan_id)->where('periode', $periode)->where('penduduk_status',0)->count();
                                 }
                                 // echo "<br><font size='12'>Jumlah : " . "0" . " Keluarga</font>";
                                 echo "<br><font size='12'>Jumlah : " . $total . " Keluarga</font>";

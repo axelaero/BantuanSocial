@@ -50,12 +50,12 @@
                         ?>
                         
                         <td class="text-center border px-10 py-2">
-                        <a href='/pendudukupdate/{{$dt->penduduk_id}}'>{{$dt->deskripsi}}</a>
+                        <a href='/pendudukupdate/{{$dt->penduduk_id}}'><b><div style="color:red;">{{$dt->deskripsi}}</div></b></a>
                         </td>
                     @else
                         <!-- <td class="text-center border px-10 py-2">Pending</td> -->
                         <td class='border text-center px-8 py-2'>
-                            <a href='/pendudukupdate/{{$dt->penduduk_id}}' class='btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline bg-green-700 hover:bg-green-900 text-white font-normal py-0.5 px-4 mr-1 rounded'>Update</a>
+                            <a href='/pendudukupdate/{{$dt->penduduk_id}}' class='btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline bg-green-700 hover:bg-green-900 text-white font-normal py-0.5 px-4 mr-1 rounded'><b>Update</b></a>
                         </td>
                     @endif
                     
